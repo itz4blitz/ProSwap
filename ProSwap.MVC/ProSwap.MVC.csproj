@@ -236,6 +236,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
+    <Content Include="Views\Game\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -261,6 +262,10 @@
     <ProjectReference Include="..\ProSwap.Models\ProSwap.Models.csproj">
       <Project>{b23782b5-9c05-4d7b-9a6c-bd32c802a6cd}</Project>
       <Name>ProSwap.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProSwap.Services\ProSwap.Services.csproj">
+      <Project>{FA89D69E-276D-4234-A8F8-B7D8D3D0B5CA}</Project>
+      <Name>ProSwap.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
