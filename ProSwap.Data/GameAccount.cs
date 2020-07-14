@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProSwap.Data
 {
-    public class GameAccount
+    public class GameAccount : Game
     {
         public int GameAccountId { get; set; }
         public Guid OwnerId { get; set; }
