@@ -8,5 +8,7 @@ namespace ProSwap.Models.Game
 {
     public class GameEdit
     {
+        public string GameName { get; set; }
+        public string CurrencyName { get; set; }
     }
 }

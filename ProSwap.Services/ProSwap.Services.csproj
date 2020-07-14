@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameService.cs" />
     <Compile Include="OfferService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

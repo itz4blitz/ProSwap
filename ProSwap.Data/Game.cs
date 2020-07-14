@@ -8,6 +8,7 @@ namespace ProSwap.Data
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string CurrencyName { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }
     }
 }
