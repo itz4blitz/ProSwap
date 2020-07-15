@@ -6,42 +6,81 @@
 
 <h2>Index</h2>
 
+<hr />
+<hr />
+<div class="col-lg-12">
+    <div class="text-left">
+        <a href='@Url.Action("Create", "Game")' class="btn btn-outline-light">Add Game</a>
+    </div>
+</div>
+<div class="container">
+    <!-- content tabs -->
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive table-responsive--border">
+                        <table class="profile__table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CurrencyName)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="#">@Html.DisplayFor(modelItem => item.ID)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CurrencyName)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
 
-<button class="btn btn-default" role="button">@Html.ActionLink("Create New", "Create")</button>
+            </div>
+        </div>
+    </div>
+    <!-- paginator -->
+    <div class="col-12">
+        <div class="paginator">
+            <div class="paginator__counter">
+                1 of 9
+            </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrencyName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrencyName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-
-    }
-
-</table>
+            <ul class="paginator__wrap">
+                <li class="paginator__item paginator__item--prev">
+                    <a href="#">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
+                    </a>
+                </li>
+                <li class="paginator__item paginator__item--active"><a href="#">1</a></li>
+                <li class="paginator__item"><a href="#">2</a></li>
+                <li class="paginator__item"><a href="#">3</a></li>
+                <li class="paginator__item paginator__item--next">
+                    <a href="#">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end paginator -->
+</div>
