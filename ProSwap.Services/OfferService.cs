@@ -37,7 +37,7 @@ namespace ProSwap.Services
             }
         }
 
-        public List<OfferListItem> GetOffers()
+        public IEnumerable<OfferListItem> GetOffers()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -49,11 +49,13 @@ namespace ProSwap.Services
                                 new OfferListItem
                                 {
                                     ID = e.ID,
-                                    CreatedUtc = e.CreatedUtc
+                                    IsActive = e.IsActive,
+                                    CreatedUtc = e.CreatedUtc,
+                                    ModifiedUtc = e.ModifiedUtc
                                 }
                         );
 
-                return query.ToList();
+                return query.ToArray();
             }
         }
 

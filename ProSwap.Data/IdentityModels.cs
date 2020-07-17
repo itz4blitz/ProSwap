@@ -53,6 +53,7 @@ namespace ProSwap.Data
                 .HasForeignKey(i => i.GameID)
                 .WillCascadeOnDelete(false);
 
+
         }
     }
 

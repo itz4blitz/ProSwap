@@ -96,6 +96,10 @@
     <Compile Include="Migrations\202007140228110_Testing.Designer.cs">
       <DependentUpon>202007140228110_Testing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007151545468_GameIdModelModified.cs" />
+    <Compile Include="Migrations\202007151545468_GameIdModelModified.Designer.cs">
+      <DependentUpon>202007151545468_GameIdModelModified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Offer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007140228110_Testing.resx">
       <DependentUpon>202007140228110_Testing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007151545468_GameIdModelModified.resx">
+      <DependentUpon>202007151545468_GameIdModelModified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

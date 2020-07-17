@@ -44,7 +44,7 @@ namespace ProSwap.Data
         public bool IsActive { get; set; }
 
         [ForeignKey("Game")]
-        public int? GameID { get; set; }
+        public int GameID { get; set; }
         public virtual Game Game { get; set; }
 
     }
