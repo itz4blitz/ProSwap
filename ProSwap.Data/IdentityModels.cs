@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using ProSwap.Data.OfferTypes;
 
 namespace ProSwap.Data
 {
@@ -35,6 +36,10 @@ namespace ProSwap.Data
 
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<AccountOffer> AccountOffers { get; set; }
+        public DbSet<CurrencyOffer> CurrencyOffers { get; set; }
+        public DbSet<ServiceOffer> ServiceOffers { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -53,7 +58,14 @@ namespace ProSwap.Data
                 .HasForeignKey(i => i.GameID)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Offer>()
+                .HasRequired(j => j.Game);
 
+            modelBuilder.Entity<AccountOffer>();
+
+            modelBuilder.Entity<CurrencyOffer>();
+
+            modelBuilder.Entity<ServiceOffer>();
         }
     }
 

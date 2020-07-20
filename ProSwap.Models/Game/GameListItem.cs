@@ -10,6 +10,5 @@ namespace ProSwap.Models.Game
     {
         public int GameId { get; set; }
         public string GameName { get; set; }
-        public string CurrencyName { get; set; }
     }
 }

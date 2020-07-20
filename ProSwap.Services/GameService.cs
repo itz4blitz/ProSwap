@@ -23,8 +23,7 @@ namespace ProSwap.Services
             var entity =
                 new Game()
                 {
-                    Name = model.GameName,
-                    CurrencyName = model.CurrencyName
+                    Name = model.GameName
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -45,15 +44,14 @@ namespace ProSwap.Services
                                 new GameListItem
                                 {
                                     GameId = e.ID,
-                                    GameName = e.Name,
-                                    CurrencyName = e.CurrencyName
+                                    GameName = e.Name
                                 }
                         );
 
                 return query.ToArray();
             }
         }
-        public GameDetail GetGameById(int id)
+        public GameDetails GetGameById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -62,11 +60,10 @@ namespace ProSwap.Services
                         .Games
                         .Single(e => e.ID == id);
                 return
-                    new GameDetail
+                    new GameDetails
                     {
                         GameId = entity.ID,
-                        GameName = entity.Name,
-                        CurrencyName = entity.CurrencyName
+                        GameName = entity.Name
                     };
             }
         }

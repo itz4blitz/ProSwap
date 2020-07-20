@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProSwap.Data;
+using ProSwap.Data.OfferTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,14 +25,5 @@ namespace ProSwap.Models.Offer
         [Required]
         [Display(Name = "Details: ")]
         public string Body { get; set; }
-        
-        [Display(Name = "Unit Price: ")]
-        [Required]
-        public decimal UnitPrice { get; set; }
-
-        [Display(Name = "Quantity Available: ")]
-        [Required]
-        public double TotalUnitsAvailable { get; set; }
-
     }
 }

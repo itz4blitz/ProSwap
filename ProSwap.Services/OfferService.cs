@@ -25,9 +25,7 @@ namespace ProSwap.Services
                     OwnerID = _userId,
                     Title = model.Title,
                     Body = model.Body,
-                    CreatedUtc = DateTimeOffset.Now,
-                    UnitPrice = model.UnitPrice,
-                    TotalUnitsAvailable = model.TotalUnitsAvailable
+                    CreatedUtc = DateTimeOffset.Now
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -48,7 +46,7 @@ namespace ProSwap.Services
                             e =>
                                 new OfferListItem
                                 {
-                                    ID = e.ID,
+                                    OfferId = e.OfferID,
                                     IsActive = e.IsActive,
                                     CreatedUtc = e.CreatedUtc,
                                     ModifiedUtc = e.ModifiedUtc
@@ -59,18 +57,18 @@ namespace ProSwap.Services
             }
         }
 
-        public OfferDetail GetOfferById(int id)
+        public OfferDetails GetOfferById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Offers
-                        .Single(e => e.ID == id);
+                        .Single(e => e.OfferID == id);
                 return
-                    new OfferDetail
+                    new OfferDetails
                     {
-                        OfferId = entity.ID,
+                        OfferId = entity.OfferID,
                         Title = entity.Title,
                         Body = entity.Body,
                         CreatedUtc = entity.CreatedUtc,
@@ -79,7 +77,7 @@ namespace ProSwap.Services
             }
         }
 
-        public OfferDetail GetOfferByGameId(int gameId)
+        public OfferDetails GetOfferByGameId(int gameId)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -88,9 +86,9 @@ namespace ProSwap.Services
                         .Offers
                         .Single(e => e.GameID == gameId);
                 return
-                    new OfferDetail
+                    new OfferDetails
                     {
-                        OfferId = entity.ID,
+                        OfferId = entity.OfferID,
                         Title = entity.Title,
                         Body = entity.Body,
                         CreatedUtc = entity.CreatedUtc,
@@ -99,17 +97,17 @@ namespace ProSwap.Services
             }
         }
 
-        public bool OfferUpdate(OfferEdit model)
+        public bool OfferUpdate(OfferUpdate model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Offers
-                        .Single(e => e.ID == model.OfferId && e.OwnerID == _userId);
+                        .Single(e => e.OfferID == model.OfferId && e.OwnerID == _userId);
 
                 entity.Title = model.Title;
-                entity.Body = model.Content;
+                entity.Body = model.Body;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
                 return ctx.SaveChanges() == 1;
@@ -124,7 +122,7 @@ namespace ProSwap.Services
                 var entity =
                     ctx
                         .Offers
-                        .Single(e => e.ID == offerId && e.OwnerID == _userId);
+                        .Single(e => e.OfferID == offerId && e.OwnerID == _userId);
 
                 ctx.Offers.Remove(entity);
 

@@ -84,24 +84,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameAccount.cs" />
-    <Compile Include="Currency.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202007132251104_InitialCreate.cs" />
-    <Compile Include="Migrations\202007132251104_InitialCreate.Designer.cs">
-      <DependentUpon>202007132251104_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007140228110_Testing.cs" />
-    <Compile Include="Migrations\202007140228110_Testing.Designer.cs">
-      <DependentUpon>202007140228110_Testing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007151545468_GameIdModelModified.cs" />
-    <Compile Include="Migrations\202007151545468_GameIdModelModified.Designer.cs">
-      <DependentUpon>202007151545468_GameIdModelModified.cs</DependentUpon>
+    <Compile Include="Migrations\202007200046316_UpdatedModels.cs" />
+    <Compile Include="Migrations\202007200046316_UpdatedModels.Designer.cs">
+      <DependentUpon>202007200046316_UpdatedModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Offer.cs" />
+    <Compile Include="OfferTypes\AccountOffer.cs" />
+    <Compile Include="OfferTypes\CurrencyOffer.cs" />
+    <Compile Include="OfferTypes\ServiceOffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,14 +102,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007132251104_InitialCreate.resx">
-      <DependentUpon>202007132251104_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007140228110_Testing.resx">
-      <DependentUpon>202007140228110_Testing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007151545468_GameIdModelModified.resx">
-      <DependentUpon>202007151545468_GameIdModelModified.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007200046316_UpdatedModels.resx">
+      <DependentUpon>202007200046316_UpdatedModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

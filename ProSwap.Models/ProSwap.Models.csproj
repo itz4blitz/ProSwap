@@ -55,13 +55,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\GameCreate.cs" />
-    <Compile Include="Game\GameDetail.cs" />
+    <Compile Include="Game\GameDetails.cs" />
     <Compile Include="Game\GameEdit.cs" />
     <Compile Include="Game\GameListItem.cs" />
     <Compile Include="Offer\OfferCreate.cs" />
-    <Compile Include="Offer\OfferDetail.cs" />
+    <Compile Include="Offer\OfferDetails.cs" />
     <Compile Include="Offer\OfferEdit.cs" />
+    <Compile Include="Offer\OfferUpdate.cs" />
     <Compile Include="Offer\OfferListItem.cs" />
+    <Compile Include="Offer\OfferType\AccountOffer\AccountOfferCreate.cs" />
+    <Compile Include="Offer\OfferType\AccountOffer\AccountOfferDetails.cs" />
+    <Compile Include="Offer\OfferType\AccountOffer\AccountOfferEdit.cs" />
+    <Compile Include="Offer\OfferType\AccountOffer\AccountOfferListItem.cs" />
+    <Compile Include="Offer\OfferType\CurrencyOffer\CurrencyOfferCreate.cs" />
+    <Compile Include="Offer\OfferType\CurrencyOffer\CurrencyOfferDetails.cs" />
+    <Compile Include="Offer\OfferType\CurrencyOffer\CurrencyOfferEdit.cs" />
+    <Compile Include="Offer\OfferType\CurrencyOffer\CurrencyOfferListItem.cs" />
+    <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferCreate.cs" />
+    <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferDetails.cs" />
+    <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferEdit.cs" />
+    <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,5 +87,6 @@
       <Name>ProSwap.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

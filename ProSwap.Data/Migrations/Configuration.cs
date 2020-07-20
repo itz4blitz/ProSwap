@@ -10,7 +10,6 @@ namespace ProSwap.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "ProSwap.Data.ApplicationDbContext";
         }
 
         protected override void Seed(ProSwap.Data.ApplicationDbContext context)

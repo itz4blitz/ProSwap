@@ -54,9 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountOfferService.cs" />
+    <Compile Include="CurrencyOfferService.cs" />
     <Compile Include="GameService.cs" />
     <Compile Include="OfferService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceOfferService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -68,7 +68,7 @@ namespace ProSwap.API.Controllers
 
         // api/JobPost/Update
         [Route("UpdateById")]
-        public IHttpActionResult Put(OfferEdit offerId)
+        public IHttpActionResult Put(OfferUpdate offerId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
