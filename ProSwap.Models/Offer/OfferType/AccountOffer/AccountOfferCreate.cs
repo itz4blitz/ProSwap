@@ -10,5 +10,6 @@ namespace ProSwap.Models.Offer.OfferType.AccountOffer
     {
         public int OfferId { get; set; }
         public decimal Price { get; set; }
+        public object GameID { get; set; }
     }
 }

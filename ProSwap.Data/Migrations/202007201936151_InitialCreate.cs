@@ -3,7 +3,7 @@ namespace ProSwap.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdatedModels : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {

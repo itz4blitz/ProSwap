@@ -6,8 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ProSwap.Data;
 using ProSwap.Data.OfferTypes;
+using ProSwap.Models.Offer.OfferType.AccountOffer;
 using ProSwap.Services;
 
 namespace ProSwap.MVC.Controllers
@@ -15,8 +17,8 @@ namespace ProSwap.MVC.Controllers
     public class AccountOffersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private readonly AccountOfferService _accountOfferService;
-        private readonly string _userId;
+        private AccountOfferService _accountOfferService;
+        private Guid _userId;
 
         // GET: AccountOffers
         public ActionResult Index()
@@ -25,6 +27,7 @@ namespace ProSwap.MVC.Controllers
             return View(db.AccountOffers.ToList());
         }
 
+        [Authorize]
         // GET: AccountOffers/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,24 +43,27 @@ namespace ProSwap.MVC.Controllers
             return View(accountOffer);
         }
 
+        [Authorize]
         // GET: AccountOffers/Create
         public ActionResult Create()
         {
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name");
+            ViewBag.GameID = new SelectList(db.AccountOffers, "ID", "Name");
             return View();
         }
 
+        [Authorize]
         // POST: AccountOffers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AccountOffer accountOffer)
+        public ActionResult Create(AccountOfferCreate accountOffer)
         {
             if (ModelState.IsValid)
             {
-                db.Offers.Add(accountOffer);
-                db.SaveChanges();
+                _userId = Guid.Parse(User.Identity.GetUserId());
+                _accountOfferService = new AccountOfferService(_userId);
+                _accountOfferService.AccountOfferCreate(accountOffer);
                 return RedirectToAction("Index");
             }
 
@@ -65,6 +71,7 @@ namespace ProSwap.MVC.Controllers
             return View(accountOffer);
         }
 
+        [Authorize]
         // GET: AccountOffers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -81,6 +88,7 @@ namespace ProSwap.MVC.Controllers
             return View(accountOffer);
         }
 
+        [Authorize]
         // POST: AccountOffers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

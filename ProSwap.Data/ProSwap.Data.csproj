@@ -86,9 +86,13 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202007200046316_UpdatedModels.cs" />
-    <Compile Include="Migrations\202007200046316_UpdatedModels.Designer.cs">
-      <DependentUpon>202007200046316_UpdatedModels.cs</DependentUpon>
+    <Compile Include="Migrations\202007201936151_InitialCreate.cs" />
+    <Compile Include="Migrations\202007201936151_InitialCreate.Designer.cs">
+      <DependentUpon>202007201936151_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007210145426_SeedData2.cs" />
+    <Compile Include="Migrations\202007210145426_SeedData2.Designer.cs">
+      <DependentUpon>202007210145426_SeedData2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Offer.cs" />
@@ -96,14 +100,18 @@
     <Compile Include="OfferTypes\CurrencyOffer.cs" />
     <Compile Include="OfferTypes\ServiceOffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007200046316_UpdatedModels.resx">
-      <DependentUpon>202007200046316_UpdatedModels.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007201936151_InitialCreate.resx">
+      <DependentUpon>202007201936151_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007210145426_SeedData2.resx">
+      <DependentUpon>202007210145426_SeedData2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
