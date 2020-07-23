@@ -12,6 +12,8 @@ namespace ProSwap.Models.Offer
     {
         [Display(Name = "Offer ID: ")]
         public int OfferId { get; set; }
+        [Display(Name = "Game: ")]
+        public int GameId { get; set; }
         [Display(Name = "Created on: ")]
         public DateTimeOffset CreatedUtc { get; set; }
         [Display(Name = "Edited on: ")]

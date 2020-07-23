@@ -75,6 +75,11 @@
     <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferDetails.cs" />
     <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferEdit.cs" />
     <Compile Include="Offer\OfferType\ServiceOffer\ServiceOfferListItem.cs" />
+    <Compile Include="Post\PostCreate.cs" />
+    <Compile Include="Post\PostDetails.cs" />
+    <Compile Include="Post\PostEdit.cs" />
+    <Compile Include="Post\PostListItem.cs" />
+    <Compile Include="Post\PostUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

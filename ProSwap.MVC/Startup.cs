@@ -12,6 +12,7 @@ namespace ProSwap.MVC
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            CreateRolesandUsers();
         }
 
         private void CreateRolesandUsers()

@@ -11,7 +11,15 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
 
+.form-control {
+    background-color: rgba(27, 46, 55, 0.6) !important;
+    border: solid 1px black
+}
+
+.text-editor{
+    padding: 15px 15px 15px 15px !important;
 }
 
 p {
@@ -39,9 +47,11 @@ textarea {
 a {
     color: #C5C6C7;
 }
+
     a:hover {
         color: #45A29E;
     }
+
     a:focus {
         color: #45A29E;
         text-decoration: none;
@@ -56,7 +66,7 @@ a {
         color: #C5C6C7 !important;
     }
 
-    .nav-link:active{
+    .nav-link:active {
         color: #C5C6C7 !important;
     }
 
@@ -115,7 +125,7 @@ h1 {
             color: #45A29E !important;
         }
 
-a{
+a {
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -198,7 +208,7 @@ a{
 .carousel-container {
     border-top: none !important;
     margin-bottom: 50px;
-    background-color: rgba(11, 12, 16, 0.7) !important;
+    background-color: rgba(27, 46, 55, 0.8) !important;
     position: static;
     z-index: 1;
     background: #fff;
@@ -209,24 +219,65 @@ a{
     border: 1px solid black !important;
 }
 
-.main-container h1{
-    
+.main-container h1 {
 }
 
-.index-side-container {
-    margin-bottom: 50px;
-    background-color: rgba(11, 12, 16, 0.7) !important;
+.col-md-7 {
+    display: flex;
+    flex-direction: column;
+}
+
+#detailsBtn {
+    margin-top: auto !important;
+    width: 200px !important;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: white !important;
+    outline-color: #5596E6 !important;
+    border: 1px solid #5596E6;
+    background-color: #5596E6;
+    margin-right: 25px;
+}
+
+/* Begin /Account/Login: */
+
+.login-container {
+    padding: 10px 10px 10px 10px;
+    color: white;
+    background-color: rgba(27, 46, 55, 0.9) !important;
     position: static;
-    margin-top: 40px;
-    z-index: 1;
+    z-index: 10;
     background: #fff;
-    width: 60%;
-    margin-left: 20%;
-    border-radius: 4px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    border: 1px solid gray;
+    width: 80%;
+    margin-left: 10%;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+}
+
+.login-inner-container h1 {
+    padding: 15px 15px 15px 15px;
+}
+
+
+.news-container {
+    color: white;
+    background-color: rgba(27, 46, 55, 0.6) !important;
+    position: static;
+    z-index: 10;
+    background: #fff;
+    width: 80%;
+    margin-left: 10%;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
 }
 
 .alert-dark {
@@ -259,20 +310,22 @@ a{
     color: white;
 }
 
-.games-container td{
-    color: white;
-}
+    .games-container td {
+        color: white;
+    }
 
-.games-container tr {
-    color: white;
-}
+    .games-container tr {
+        color: white;
+    }
 
-.games-container h1 {
-    font-size: large;
-}
+    .games-container h1 {
+        font-size: large;
+    }
 
-#gameAddButton{
+#gameAddButton {
     margin: 15px 15px 15px 15px;
+    outline: solid 1px black;
+    -moz-outline-radius: 5px 5px 5px 5px;
 }
 
 table, th, td {
@@ -289,17 +342,15 @@ td {
     height: 40px;
 }
 
-tr{
+tr {
     color: black;
-
 }
 
 
 th {
 }
 
-tbody{
-
+tbody {
 }
 
 #carousel-img-1 {
@@ -312,13 +363,8 @@ tbody{
 
 .container {
     width: 100% !important;
-
 }
 
-#gameAddButton {
-    outline: solid 1px black;
-    -moz-outline-radius: 5px 5px 5px 5px;
-} 
 
 footer {
     background-color: rgba(27, 46, 55, 0.6) !important;
@@ -335,3 +381,30 @@ footer {
     border-top: none;
     border-bottom: none;
 }
+
+footer h1{
+    padding-left: 15px; 
+}
+
+.news-container h1{
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.pagination {
+    padding: 10px 10px 10px 10px;
+    background-color: rgba(27, 46, 55, 0.6) !important;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border-radius: 0px 0px 0px 0px;
+    border: 1px solid black;
+}
+
+    .pagination page-item{
+        background-color: rgba(27, 46, 55, 0.9) !important;
+        color: black;
+    }
+
+    .pagination page-link{
+        color: white;
+    }

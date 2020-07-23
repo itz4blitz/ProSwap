@@ -36,6 +36,7 @@ namespace ProSwap.Data
 
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<AccountOffer> AccountOffers { get; set; }
         public DbSet<CurrencyOffer> CurrencyOffers { get; set; }
         public DbSet<ServiceOffer> ServiceOffers { get; set; }

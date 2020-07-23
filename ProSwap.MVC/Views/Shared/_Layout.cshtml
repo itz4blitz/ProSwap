@@ -8,6 +8,16 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/f341e2d21f.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Questrial&display=swap" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/55mthxyfg3bdz0pjc4b37qufruw6f0txln3ocftq58hocnun/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#text-editor',
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            branding: false
+        });
+    </script>
+
 </head>
 <body>
     <div class="bg">
@@ -85,7 +95,7 @@
 
                             <!-- Grid column -->
                             <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                                <h6 class="mb-0">Connect with us:</h6>
+                                <h1 class="mb-0">Connect with us:</h1>
                             </div>
                             <!-- Grid column -->
                             <!-- Grid column -->
