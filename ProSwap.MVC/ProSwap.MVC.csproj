@@ -197,6 +197,16 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\fn.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\map.jpg" />
+    <Content Include="Content\images\runescape.jpg" />
+    <Content Include="Content\images\wow1.png" />
+    <Content Include="Content\images\wow2.png" />
+    <Content Include="Content\images\wow3.png" />
+    <Content Include="Content\images\wow4.png" />
+    <Content Include="Content\images\wowclassic.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

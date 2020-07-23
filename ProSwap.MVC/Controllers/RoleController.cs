@@ -13,6 +13,7 @@ namespace ProSwap.MVC.Controllers
     public class RoleController : Controller
     {
         ApplicationDbContext _ctx = new ApplicationDbContext();
+
         // GET: Role
         public ActionResult Index()
         {
@@ -51,8 +52,7 @@ namespace ProSwap.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _ctx.Roles.Add(role);
-                _ctx.SaveChanges();
+                var _roleService = new RoleService();
                 return RedirectToAction("Index");
             }
 
