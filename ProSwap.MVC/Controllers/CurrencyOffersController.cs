@@ -15,9 +15,9 @@ namespace ProSwap.MVC.Controllers
     public class CurrencyOffersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private CurrencyOfferService _currencyOfferService;
-        private string _userId;
 
+
+        [AllowAnonymous]
         // GET: CurrencyOffers
         public ActionResult Index()
         {
@@ -26,6 +26,7 @@ namespace ProSwap.MVC.Controllers
         }
 
         // GET: CurrencyOffers/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

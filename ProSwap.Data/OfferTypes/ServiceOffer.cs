@@ -14,5 +14,6 @@ namespace ProSwap.Data.OfferTypes
         public int DaysTillComplete { get; set; }
         public DateTimeOffset ServiceStartDate { get; set; }
         public DateTimeOffset ServiceEndDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

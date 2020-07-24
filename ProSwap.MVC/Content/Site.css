@@ -44,6 +44,9 @@ textarea {
     max-width: 280px;
 }
 
+input{
+    color: white !important;
+}
 a {
     color: #C5C6C7;
 }
@@ -72,8 +75,6 @@ a {
 
 .navbar {
     background-color: rgba(27, 46, 55, 0.6) !important;
-    position: static;
-    z-index: 10;
     background: #fff;
     width: 80%;
     margin-left: 10%;
@@ -85,8 +86,6 @@ a {
     border-bottom: none;
 }
 
-.navbar-inner {
-}
 
 h1 {
     color: #5596E6;
@@ -242,7 +241,7 @@ a {
 
 /* Begin /Account/Login: */
 
-.login-container {
+.body-container {
     padding: 10px 10px 10px 10px;
     color: white;
     background-color: rgba(27, 46, 55, 0.9) !important;
@@ -255,8 +254,6 @@ a {
     -webkit-border-radius: 0px 0px 0px 0px;
     border-radius: 0px 0px 0px 0px;
     border: 1px solid black;
-    border-top: none;
-    border-bottom: none;
 }
 
 .login-inner-container h1 {
@@ -266,7 +263,7 @@ a {
 
 .news-container {
     color: white;
-    background-color: rgba(27, 46, 55, 0.6) !important;
+    background-color: rgba(27, 46, 55, 0.9) !important;
     position: static;
     z-index: 10;
     background: #fff;
@@ -276,7 +273,6 @@ a {
     -webkit-border-radius: 0px 0px 0px 0px;
     border-radius: 0px 0px 0px 0px;
     border: 1px solid black;
-    border-top: none;
     border-bottom: none;
 }
 
@@ -325,7 +321,6 @@ a {
 #gameAddButton {
     margin: 15px 15px 15px 15px;
     outline: solid 1px black;
-    -moz-outline-radius: 5px 5px 5px 5px;
 }
 
 table, th, td {
@@ -378,7 +373,6 @@ footer {
     -webkit-border-radius: 0px 0px 0px 0px;
     border-radius: 0px 0px 0px 0px;
     border: 1px solid black;
-    border-top: none;
     border-bottom: none;
 }
 

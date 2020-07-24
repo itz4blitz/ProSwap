@@ -21,12 +21,13 @@ namespace ProSwap.MVC.Controllers
 
 
         // GET: ServiceOffers
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var offers = db.ServiceOffers.Include(s => s.Game);
             return View(offers.ToList());
         }
-
+        [AllowAnonymous]
         // GET: ServiceOffers/Details/5
         public ActionResult Details(int? id)
         {

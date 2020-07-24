@@ -9,7 +9,9 @@ namespace ProSwap.Data
     {
         [Key]
         public int ID { get; set; }
+        [Display(Name = "Game name: ")]
         public string Name { get; set; }
+        [Display(Name="Currency: ")]
         public string CurrencyName { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }
     }

@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllowHtmlAttribute.cs" />
-    <Compile Include="CreatePost.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Migrations\202007201936151_InitialCreate.cs" />
@@ -99,6 +98,10 @@
     <Compile Include="Migrations\202007231500176_added-posts.cs" />
     <Compile Include="Migrations\202007231500176_added-posts.Designer.cs">
       <DependentUpon>202007231500176_added-posts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007240218431_PostTableAdded.cs" />
+    <Compile Include="Migrations\202007240218431_PostTableAdded.Designer.cs">
+      <DependentUpon>202007240218431_PostTableAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Offer.cs" />
@@ -122,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007231500176_added-posts.resx">
       <DependentUpon>202007231500176_added-posts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007240218431_PostTableAdded.resx">
+      <DependentUpon>202007240218431_PostTableAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

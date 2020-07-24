@@ -17,12 +17,14 @@ namespace ProSwap.MVC.Controllers
         private GameService _gameService;
         private string _userId;
 
+        [AllowAnonymous]
         // GET: Games
         public ActionResult Index()
         {
             return View(db.Games.ToList());
         }
 
+        [AllowAnonymous]
         // GET: Games/Details/5
         public ActionResult Details(int? id)
         {

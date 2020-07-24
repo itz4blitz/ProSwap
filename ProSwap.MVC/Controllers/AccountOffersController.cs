@@ -21,6 +21,7 @@ namespace ProSwap.MVC.Controllers
         private Guid _userId;
 
         // GET: AccountOffers
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var offers = db.AccountOffers.Where(a => a.IsActive == true);
@@ -29,6 +30,7 @@ namespace ProSwap.MVC.Controllers
 
         [Authorize]
         // GET: AccountOffers/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
