@@ -28,10 +28,9 @@ namespace ProSwap.Services
                     Body = model.Body,
                     IsActive = true,
                     GameID = model.GameId,
+                    CurrencyName = model.CurrencyName,
                     UnitsAvailable = model.UnitsAvailable,
                     PricePerUnit = model.PricePerUnit,
-                    CurrencyName = model.CurrencyName,
-                    WasFulfilled = false,
                     CreatedUtc = DateTimeOffset.Now
                 };
 
@@ -42,7 +41,7 @@ namespace ProSwap.Services
             }
         }
 
-        public IEnumerable<CurrencyOfferListItem> GetCurrencyoffers()
+        public IEnumerable<CurrencyOfferListItem> GetCurrencyOffers()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -53,23 +52,23 @@ namespace ProSwap.Services
                             e =>
                                 new CurrencyOfferListItem
                                 {
+                                    Owner = ctx.Users.FirstOrDefault(u => u.Id == e.OwnerID.ToString()).UserName,
                                     OfferId = e.OfferID,
                                     Title = e.Title,
                                     Body = e.Body,
-                                    //GameID = e.GameID,
+                                    GameName = ctx.Games.FirstOrDefault(model => model.ID == e.GameID).Name,
                                     CreatedUtc = e.CreatedUtc,
                                     ModifiedUtc = e.ModifiedUtc,
                                     IsActive = e.IsActive,
+                                    CurrencyName = e.CurrencyName,
                                     UnitsAvailable = e.UnitsAvailable,
-                                    PricePerUnit = e.PricePerUnit,
-                                    CurrencyName = e.CurrencyName
+                                    PricePerUnit = e.PricePerUnit
                                 }
                         );
 
                 return query.ToArray();
             }
         }
-
 
         public CurrencyOfferDetails GetCurrencyOfferById(int id)
         {
@@ -85,14 +84,14 @@ namespace ProSwap.Services
                         OfferId = entity.OfferID,
                         Title = entity.Title,
                         Body = entity.Body,
-                        //GameId = entity.GameID,
-                        //OwnerID = entity.OwnerID,
+                        GameName = ctx.Games.Single(model => model.ID == entity.GameID).Name,
+                        OwnerName = ctx.Users.FirstOrDefault(u => u.Id == entity.OwnerID.ToString()).UserName,
                         IsActive = entity.IsActive,
-                        UnitsAvailable = entity.UnitsAvailable,
-                        PricePerUnit = entity.PricePerUnit,
-                        CurrencyName = entity.CurrencyName,
                         CreatedUtc = entity.CreatedUtc,
-                        ModifiedUtc = entity.ModifiedUtc
+                        ModifiedUtc = entity.ModifiedUtc,
+                        CurrencyName = entity.CurrencyName,
+                        UnitsAvailable = entity.UnitsAvailable,
+                        PricePerUnit = entity.PricePerUnit
                     };
             }
         }
@@ -110,9 +109,9 @@ namespace ProSwap.Services
                 entity.Body = model.Body;
                 entity.IsActive = model.IsActive;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
-                entity.CurrencyName = entity.CurrencyName;
-                entity.PricePerUnit = model.PricePerUnit;
+                entity.CurrencyName = model.CurrencyName;
                 entity.UnitsAvailable = model.UnitsAvailable;
+                entity.PricePerUnit = model.PricePerUnit;
                 return ctx.SaveChanges() == 1;
             }
         }

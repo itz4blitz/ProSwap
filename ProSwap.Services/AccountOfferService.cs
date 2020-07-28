@@ -50,10 +50,11 @@ namespace ProSwap.Services
                             e =>
                                 new AccountOfferListItem
                                 {
+                                    Owner = ctx.Users.FirstOrDefault(u => u.Id == e.OwnerID.ToString()).UserName,
                                     OfferId = e.OfferID,
                                     Title = e.Title,
                                     Body = e.Body,
-                                    //GameID = e.GameID,
+                                    GameName = ctx.Games.FirstOrDefault(model => model.ID == e.GameID).Name,
                                     CreatedUtc = e.CreatedUtc,
                                     ModifiedUtc = e.ModifiedUtc,
                                     IsActive = e.IsActive,
@@ -64,7 +65,6 @@ namespace ProSwap.Services
                 return query.ToArray();
             }
         }
-
 
         public AccountOfferDetails GetAccountOfferById(int id)
         {
@@ -80,11 +80,12 @@ namespace ProSwap.Services
                         OfferId = entity.OfferID,
                         Title = entity.Title,
                         Body = entity.Body,
-                        //GameName = entity.GameID,
-                        //OwnerID = entity.OwnerID,
+                        GameName = ctx.Games.Single(model => model.ID == entity.GameID).Name,
+                        OwnerName = ctx.Users.FirstOrDefault(u => u.Id == entity.OwnerID.ToString()).UserName,
                         IsActive = entity.IsActive,
                         CreatedUtc = entity.CreatedUtc,
-                        ModifiedUtc = entity.ModifiedUtc
+                        ModifiedUtc = entity.ModifiedUtc,
+                        Price = entity.Price
                     };
             }
         }
@@ -102,7 +103,7 @@ namespace ProSwap.Services
                 entity.Body = model.Body;
                 entity.IsActive = model.IsActive;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
-
+                entity.Price = model.Price;
                 return ctx.SaveChanges() == 1;
             }
         }

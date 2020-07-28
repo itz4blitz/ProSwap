@@ -17,19 +17,18 @@ namespace ProSwap.MVC.Controllers
     public class AccountOffersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private Guid _userId;
 
 
-        // GET: accountoffers
+        // GET: AccountOffers
         public ActionResult Index()
         {
-            AccountOfferService _accountofferService = CreateAccountOfferService();
-            var model = _accountofferService.GetAccountOffers();
+            AccountOfferService _accountOfferService = CreateAccountOfferService();
+            var model = _accountOfferService.GetAccountOffers();
             return View(model.ToList());
         }
 
 
-        // GET: accountoffers/create
+        // GET: AccountOffers/Create
         public ActionResult Create()
         {
             var games = db.Games.ToList();
@@ -47,7 +46,7 @@ namespace ProSwap.MVC.Controllers
             return View(model);
         }
 
-        // POST: Offers/Create
+        // POST: AccountOffers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -56,9 +55,8 @@ namespace ProSwap.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _userId = Guid.Parse(User.Identity.GetUserId());
-                var _accountOfferService = new AccountOfferService(_userId);
-                _accountOfferService.CreateAccountOffer(offer);
+                var svc = CreateAccountOfferService();
+                svc.CreateAccountOffer(offer);
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +64,7 @@ namespace ProSwap.MVC.Controllers
             return View(offer);
         }
 
-        // GET: Offers/Details/5
+        // GET: AccountOffers/Details/5
         public ActionResult Details(int id)
         {
             var svc = CreateAccountOfferService();
@@ -74,7 +72,7 @@ namespace ProSwap.MVC.Controllers
             return View(model);
         }
 
-        // GET: Offers/Edit/5
+        // GET: AccountOffers/Edit/5
         public ActionResult Edit(int id)
         {
             var service = CreateAccountOfferService();
@@ -90,7 +88,7 @@ namespace ProSwap.MVC.Controllers
             return View(model);
         }
 
-        // POST: Offers/Edit/5
+        // POST: AccountOffers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -109,15 +107,15 @@ namespace ProSwap.MVC.Controllers
 
             if (service.UpdateAccountOffer(model))
             {
-                TempData["SaveResult"] = "Your account offer was modified.";
+                TempData["SaveResult"] = "Your offer was modified.";
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Your account offer could not be updated.");
+            ModelState.AddModelError("", "Your offer could not be updated.");
             return View(model);
         }
 
-        // GET: Offers/Delete/5
+        // GET: AccountOffers/Delete/5
         public ActionResult Delete(int id)
         {
             var svc = CreateAccountOfferService();

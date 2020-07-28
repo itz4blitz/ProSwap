@@ -15,5 +15,7 @@ namespace ProSwap.Models.Offer.OfferType.ServiceOffer
         public string ServiceDescription { get; set; }
         [Display(Name = "Price: ")]
         public decimal Price { get; set; }
+        [Display(Name = "Days To Complete: ")]
+        public int DaysToComplete { get; set; }
     }
 }

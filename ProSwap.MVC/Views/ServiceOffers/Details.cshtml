@@ -1,29 +1,48 @@
-﻿@model ProSwap.Data.OfferTypes.ServiceOffer
+﻿@model ProSwap.Models.Offer.OfferType.ServiceOffer.ServiceOfferDetails
 
 @{
     ViewBag.Title = "ProSwap.io";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="body-container">
 
-<div class="main-container">
+    <h1>Details</h1>
+
     <div>
-        <h4>ServiceOffer</h4>
+        <h4>ServiceOfferDetails</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Game.Name)
+                @Html.DisplayNameFor(model => model.OfferId)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Game.Name)
+                @Html.DisplayFor(model => model.OfferId)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.OwnerID)
+                @Html.DisplayNameFor(model => model.GameName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.OwnerID)
+                @Html.DisplayFor(model => model.GameName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OwnerName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
             </dd>
 
             <dt>
@@ -59,22 +78,6 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsActive)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.WasFulfilled)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.WasFulfilled)
-            </dd>
-
-            <dt>
                 @Html.DisplayNameFor(model => model.ServiceName)
             </dt>
 
@@ -99,33 +102,18 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.DaysTillComplete)
+                @Html.DisplayNameFor(model => model.DaysToComplete)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.DaysTillComplete)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ServiceStartDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ServiceStartDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ServiceEndDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ServiceEndDate)
+                @Html.DisplayFor(model => model.DaysToComplete)
             </dd>
 
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.OfferID }) |
+        @Html.ActionLink("Edit", "Edit", new { id = Model.OfferId }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
+
 </div>

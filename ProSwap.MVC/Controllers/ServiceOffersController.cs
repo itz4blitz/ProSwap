@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ProSwap.Data;
@@ -18,122 +17,124 @@ namespace ProSwap.MVC.Controllers
     public class ServiceOffersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private ServiceOfferService _serviceOfferService;
-        private string _userId;
 
 
-        // GET: ServiceOffers
-        [System.Web.Mvc.AllowAnonymous]
+        // GET: AccountOffers
         public ActionResult Index()
         {
-            var offers = db.ServiceOffers.Include(s => s.Game);
-            return View(offers.ToList());
+            ServiceOfferService _serviceOfferService = CreateServiceOfferService();
+            var model = _serviceOfferService.GetServiceOffers();
+            return View(model.ToList());
         }
 
-        [System.Web.Mvc.AllowAnonymous]
-        // GET: ServiceOffers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceOffer serviceOffer = db.ServiceOffers.Find(id);
-            if (serviceOffer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceOffer);
-        }
 
-        // GET: ServiceOffers/Create
+        // GET: AccountOffers/Create
         public ActionResult Create()
         {
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name");
-            return View();
+            var games = db.Games.ToList();
+            var gameList = new SelectList(games.Select(e => new SelectListItem()
+            {
+                Value = e.ID.ToString(),
+                Text = e.Name
+            }).ToList(), "Value", "Text");
+
+            var model = new ServiceOfferCreate()
+            {
+                ListOfGames = gameList
+            };
+
+            return View(model);
         }
 
-        // POST: ServiceOffers/Create
+        // POST: AccountOffers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ServiceOfferCreate serviceOffer)
-        {
-            if (!ModelState.IsValid)
-            {
-                _userId = User.Identity.GetUserId();
-                //_serviceOfferService = new ServiceOfferService(_userId);
-                _serviceOfferService.CreateServiceOffer(serviceOffer);
-                return RedirectToAction("Index");
-            }
-            return View(serviceOffer);
-        }
-
-        //private ServiceOfferService CreateServiceOfferService()
-        //{
-        //    var userId = Guid.Parse(User.Identity.GetUserId());
-        //    //var service = new ServiceOfferService(userId);
-        //    //return service;
-        //}
-
-        // GET: ServiceOffers/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceOffer serviceOffer = db.ServiceOffers.Find(id);
-            if (serviceOffer == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", serviceOffer.Game.Name);
-            return View(serviceOffer);
-        }
-
-        // POST: ServiceOffers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [System.Web.Http.HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(ServiceOfferEdit serviceOffer)
+        public ActionResult Create(ServiceOfferCreate offer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(serviceOffer).State = EntityState.Modified;
-                db.SaveChanges();
+                var svc = CreateServiceOfferService();
+                svc.CreateServiceOffer(offer);
                 return RedirectToAction("Index");
             }
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", serviceOffer.ServiceName);
-            return View(serviceOffer);
+
+            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", offer.GameId);
+            return View(offer);
         }
 
-        // GET: ServiceOffers/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: AccountOffers/Details/5
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceOffer serviceOffer = db.ServiceOffers.Find(id);
-            if (serviceOffer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceOffer);
+            var svc = CreateServiceOfferService();
+            var model = svc.GetServiceOfferById(id);
+            return View(model);
         }
 
-        // POST: ServiceOffers/Delete/5
-        [System.Web.Http.HttpPost, System.Web.Http.ActionName("Delete")]
+        // GET: AccountOffers/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var service = CreateServiceOfferService();
+            var detail = service.GetServiceOfferById(id);
+            var model =
+                new ServiceOfferEdit
+                {
+                    OfferId = detail.OfferId,
+                    Title = detail.Title,
+                    Body = detail.Body,
+                    IsActive = detail.IsActive
+                };
+            return View(model);
+        }
+
+        // POST: AccountOffers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Edit(int id, ServiceOfferEdit model)
         {
-            ServiceOffer serviceOffer = db.ServiceOffers.Find(id);
-            db.Offers.Remove(serviceOffer);
-            db.SaveChanges();
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.OfferId != id)
+            {
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateServiceOfferService();
+
+            if (service.UpdateServiceOffer(model))
+            {
+                TempData["SaveResult"] = "Your offer was modified.";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Your offer could not be updated.");
+            return View(model);
+        }
+
+        // GET: AccountOffers/Delete/5
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateServiceOfferService();
+            var model = svc.GetServiceOfferById(id);
+            return View(model);
+        }
+
+        // POST: Offers/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(int id)
+        {
+            var service = CreateServiceOfferService();
+
+            service.DeleteServiceOffer(id);
+
+            TempData["SaveResult"] = "Your offer was deleted";
+
             return RedirectToAction("Index");
         }
 
@@ -146,5 +147,11 @@ namespace ProSwap.MVC.Controllers
             base.Dispose(disposing);
         }
 
+        private ServiceOfferService CreateServiceOfferService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var _serviceOfferService = new ServiceOfferService(userId);
+            return _serviceOfferService;
+        }
     }
 }

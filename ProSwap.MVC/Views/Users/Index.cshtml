@@ -8,17 +8,19 @@
 {
     <div class="body-container">
         <p>Hello, <strong>@ViewBag.Name</strong>. Welcome to the admin control panel.</p>
-        <h1>
             <li>@Html.ActionLink("Manage Roles", "Index", "Role")</li>
-        </h1>
+            <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
+            <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
     </div>
 }
 else
 {
-    <div class="body-container">
+<div class="body-container">
 
-        <h2>Hello, <strong>@ViewBag.Name</strong>. This is the user control panel.</h2>
+    <h2>Hello, <strong>@ViewBag.Name</strong>. This is the user control panel.</h2>
 
-    </div>
+    <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
+    <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
+</div>
 
 }

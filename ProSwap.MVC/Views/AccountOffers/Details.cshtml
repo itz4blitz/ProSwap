@@ -1,14 +1,16 @@
 ﻿@model ProSwap.Models.Offer.OfferType.AccountOffer.AccountOfferDetails
 
 @{
-    ViewBag.Title = "ProSwap.io";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="body-container">
+
+<h2>Details</h2>
+
 <div>
-    <h4>Account Offer Details</h4>
+    <h4>AccountOfferDetails</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -20,19 +22,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.GameId)
+            @Html.DisplayNameFor(model => model.GameName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.GameId)
+            @Html.DisplayFor(model => model.GameName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerID)
+            @Html.DisplayNameFor(model => model.OwnerName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OwnerID)
+            @Html.DisplayFor(model => model.OwnerName)
         </dd>
 
         <dt>
@@ -89,4 +91,5 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.OfferId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-    </div>
+
+</div>

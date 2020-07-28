@@ -9,9 +9,9 @@ namespace ProSwap.Models.Offer.OfferType.ServiceOffer
 {
     public class ServiceOfferListItem : OfferListItem
     {
-        [Display(Name = "Name: ")]
+        [Display(Name = "Service Name: ")]
         public string ServiceName { get; set; }
-        [Display(Name = "Description: ")]
+        [Display(Name = "Service Description: ")]
         public string ServiceDescription { get; set; }
         [Display(Name = "Price: ")]
         public decimal Price { get; set; }

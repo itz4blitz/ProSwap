@@ -1,40 +1,42 @@
-﻿@model IEnumerable<ProSwap.Data.OfferTypes.ServiceOffer>
+﻿@model IEnumerable<ProSwap.Models.Offer.OfferType.ServiceOffer.ServiceOfferListItem>
 
 @{
     ViewBag.Title = "ProSwap.io";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="body-container">
+
+    <h1>Index</h1>
+
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", "ServiceOffers", null, null)
     </p>
-
-    @if (TempData.ContainsKey("SaveResult"))
-    {
-        <div class="alert alert-success fade in" role="alert">
-
-            <button type="button" class="close" data-dismiss="alert">
-                <span>&times;</span>
-            </button>
-            @TempData["SaveResult"]
-        </div>
-    }
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OwnerID)
+                @Html.DisplayNameFor(model => model.OfferId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Owner)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Body)
+                @Html.DisplayNameFor(model => model.GameName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedUtc)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ServiceName)
@@ -46,7 +48,7 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DaysTillComplete)
+                @Html.DisplayNameFor(model => model.DaysToComplete)
             </th>
             <th></th>
         </tr>
@@ -55,19 +57,28 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OwnerID)
+                    @Html.DisplayFor(modelItem => item.OfferId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.Owner)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Body)
+                    @Html.DisplayFor(modelItem => item.GameName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedUtc)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ModifiedUtc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ServiceName)
@@ -79,15 +90,16 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DaysTillComplete)
+                    @Html.DisplayFor(modelItem => item.DaysToComplete)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OfferID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.OfferID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OfferID })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OfferId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OfferId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OfferId })
                 </td>
             </tr>
         }
 
     </table>
+
 </div>
