@@ -18,7 +18,6 @@ namespace ProSwap.Models.Offer
         public string Body { get; set; }
         [Display(Name = "Active: ")]
         public bool IsActive { get; set; }
-        [Display(Name = "Game: ")]
-        public int GameId { get; set; }
+
     }
 }

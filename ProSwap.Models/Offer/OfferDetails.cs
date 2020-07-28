@@ -12,7 +12,8 @@ namespace ProSwap.Models.Offer
     {
         public int OfferId { get; set; }
         [Display(Name = "Game: ")]
-        public int GameId { get; set; }
+        public string GameName { get; set; }
+        public string OwnerName { get; set; }
         [Display(Name = "Active: ")]
         public bool IsActive { get; set; }
         [Display(Name = "Title: ")]

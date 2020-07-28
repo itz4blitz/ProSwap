@@ -13,13 +13,13 @@ namespace ProSwap.Services
     {
         private readonly Guid _userId;
         private readonly ApplicationDbContext _ctx = new ApplicationDbContext();
-
         public ServiceOfferService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool ServiceOfferCreate(ServiceOfferCreate model)
+
+        public bool CreateServiceOffer(ServiceOfferCreate model)
         {
             var entity =
                 new ServiceOffer
@@ -27,19 +27,42 @@ namespace ProSwap.Services
                     DaysTillComplete = model.DaysToComplete,
                     ServiceName = model.ServiceName,
                     ServiceDescription = model.ServiceDescription,
-                    OwnerID = _userId,
+                    //OwnerID = _userId,
                     CreatedUtc = DateTime.Now,
-                    GameID = model.GameId,
+                    //GameID = (int)model.GameID,
                     Title = model.Title,
                     Body = model.Body,
                     Price = model.Price,
                     IsActive = true
                 };
 
+                _ctx.ServiceOffers.Add(entity);
+                return _ctx.SaveChanges() == 1;
+        }
+
+        public ServiceOfferDetails GetServiceOfferById(int id)
+        {
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.ServiceOffers.Add(entity);
-                return ctx.SaveChanges() == 1;
+                var entity =
+                    ctx
+                        .ServiceOffers
+                        .Single(e => e.OfferID == id);
+                return
+                    new ServiceOfferDetails
+                    {
+                        OfferId = entity.OfferID,
+                        //GameId = entity.GameID,
+                        IsActive = entity.IsActive,
+                        Title = entity.Title,
+                        Body = entity.Body,
+                        Price = entity.Price,
+                        ServiceName = entity.ServiceName,
+                        ServiceDescription = entity.ServiceDescription,
+                        DaysToComplete = entity.DaysTillComplete,
+                        CreatedUtc = entity.CreatedUtc,
+                        ModifiedUtc = entity.ModifiedUtc
+                    };
             }
         }
 
@@ -128,12 +151,11 @@ namespace ProSwap.Services
 
         public bool ServiceOfferUpdate(ServiceOfferEdit model)
         {
-            var entity = _ctx.ServiceOffers.Single(j => j.OfferID == model.OfferId && j.OwnerID.ToString() == _userId.ToString());
+            var entity = _ctx.ServiceOffers.Single(j => j.OfferID == model.OfferId);
             entity.ModifiedUtc = DateTime.Now;
             entity.OfferID = model.OfferId;
             entity.OwnerID = _userId;
             entity.IsActive = model.IsActive;
-            entity.GameID = model.GameId;
             entity.Body = model.Body;
             entity.Title = model.Title;
             entity.Price = model.Price;
@@ -147,5 +169,6 @@ namespace ProSwap.Services
             entity.IsActive = false;
             return _ctx.SaveChanges() == 1;
         }
+
     }
 }

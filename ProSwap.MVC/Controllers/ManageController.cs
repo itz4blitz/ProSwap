@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProSwap.MVC.Models;
+using static ProSwap.MVC.ApplicationUserManager;
 
 namespace ProSwap.MVC.Controllers
 {

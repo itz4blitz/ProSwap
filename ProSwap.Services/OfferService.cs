@@ -17,7 +17,7 @@ namespace ProSwap.Services
             _userId = userId;
         }
 
-        public bool OfferCreate(OfferCreate model)
+        public bool CreateOffer(OfferCreate model)
         {
             var entity =
                 new Offer()
@@ -25,6 +25,8 @@ namespace ProSwap.Services
                     OwnerID = _userId,
                     Title = model.Title,
                     Body = model.Body,
+                    IsActive = true,
+                    GameID = model.GameId,
                     CreatedUtc = DateTimeOffset.Now
                 };
 
@@ -41,15 +43,19 @@ namespace ProSwap.Services
             {
                 var query =
                     ctx
-                        .Offers.Where(x => x.IsActive == true)
+                        .Offers
                         .Select(
                             e =>
                                 new OfferListItem
                                 {
+                                    Owner = ctx.Users.FirstOrDefault(u => u.Id == e.OwnerID.ToString()).UserName,
                                     OfferId = e.OfferID,
-                                    IsActive = e.IsActive,
+                                    Title = e.Title,
+                                    Body = e.Body,
+                                    GameName = ctx.Games.FirstOrDefault(model => model.ID == e.GameID).Name,
                                     CreatedUtc = e.CreatedUtc,
-                                    ModifiedUtc = e.ModifiedUtc
+                                    ModifiedUtc = e.ModifiedUtc,
+                                    IsActive = e.IsActive
                                 }
                         );
 
@@ -71,51 +77,34 @@ namespace ProSwap.Services
                         OfferId = entity.OfferID,
                         Title = entity.Title,
                         Body = entity.Body,
+                        GameName = ctx.Games.Single(model => model.ID == entity.GameID).Name,
+                        OwnerName = ctx.Users.FirstOrDefault(u => u.Id == entity.OwnerID.ToString()).UserName,
+                        IsActive = entity.IsActive,
                         CreatedUtc = entity.CreatedUtc,
                         ModifiedUtc = entity.ModifiedUtc
                     };
             }
         }
 
-        public OfferDetails GetOfferByGameId(int gameId)
+        public bool UpdateOffer(OfferEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Offers
-                        .Single(e => e.GameID == gameId);
-                return
-                    new OfferDetails
-                    {
-                        OfferId = entity.OfferID,
-                        Title = entity.Title,
-                        Body = entity.Body,
-                        CreatedUtc = entity.CreatedUtc,
-                        ModifiedUtc = entity.ModifiedUtc
-                    };
-            }
-        }
-
-        public bool OfferUpdate(OfferUpdate model)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity =
-                    ctx
-                        .Offers
-                        .Single(e => e.OfferID == model.OfferId && e.OwnerID == _userId);
+                        .Single(e => e.OwnerID == _userId && e.OfferID == model.OfferId);
 
                 entity.Title = model.Title;
                 entity.Body = model.Body;
+                entity.IsActive = model.IsActive;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
                 return ctx.SaveChanges() == 1;
             }
-
         }
 
-        public bool OfferDelete(int offerId)
+        public bool DeleteOffer(int offerId)
         {
             using (var ctx = new ApplicationDbContext())
             {

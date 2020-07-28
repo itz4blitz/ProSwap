@@ -1,9 +1,8 @@
-﻿@model IEnumerable<ProSwap.Data.Post>
+﻿@model IEnumerable<ProSwap.Data.OfferTypes.AccountOffer>
 
 @{
     ViewBag.Title = "ProSwap.io";
 }
-
 <div class="body-container">
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -11,7 +10,13 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OwnerId)
+                @Html.DisplayNameFor(model => model.Game.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -25,15 +30,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedUtc)
             </th>
-            <th></th>
         </tr>
-
 
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OwnerId)
+                    @Html.DisplayFor(modelItem => item.Game.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -48,9 +57,9 @@
                     @Html.DisplayFor(modelItem => item.ModifiedUtc)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PostId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.PostId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PostId })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OfferID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OfferID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OfferID })
                 </td>
             </tr>
         }

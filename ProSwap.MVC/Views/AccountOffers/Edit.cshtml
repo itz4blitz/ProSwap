@@ -1,25 +1,25 @@
-﻿@model ProSwap.Data.OfferTypes.AccountOffer
+﻿@model ProSwap.Models.Offer.OfferType.AccountOffer.AccountOfferEdit
 
 @{
     ViewBag.Title = "ProSwap.io";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="body-container">
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>AccountOffer</h4>
+            <h4>Edit Account Offer</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.OfferID)
-
             <div class="form-group">
-                @Html.LabelFor(model => model.OwnerID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.OfferId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.OwnerID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.OwnerID, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.OfferId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OfferId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -40,22 +40,6 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CreatedUtc, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CreatedUtc, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CreatedUtc, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ModifiedUtc, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ModifiedUtc, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ModifiedUtc, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
                 @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -66,20 +50,10 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.WasFulfilled, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.GameId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.WasFulfilled)
-                        @Html.ValidationMessageFor(model => model.WasFulfilled, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.GameID, "GameID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("GameID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.GameID, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.GameId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GameId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -93,7 +67,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-outline-s" />
                 </div>
             </div>
         </div>
@@ -102,8 +76,9 @@
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+</div>

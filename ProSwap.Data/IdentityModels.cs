@@ -59,14 +59,19 @@ namespace ProSwap.Data
                 .HasForeignKey(i => i.GameID)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Offer>()
-                .HasRequired(j => j.Game);
+            modelBuilder.Entity<Offer>().ToTable("Offer")
+                .HasRequired(e => e.Game);
 
-            modelBuilder.Entity<AccountOffer>();
+            modelBuilder.Entity<AccountOffer>()
+                .HasRequired(e => e.Game);
 
-            modelBuilder.Entity<CurrencyOffer>();
 
-            modelBuilder.Entity<ServiceOffer>();
+            modelBuilder.Entity<CurrencyOffer>()
+                .HasRequired(e => e.Game);
+
+
+            modelBuilder.Entity<ServiceOffer>()
+                .HasRequired(e => e.Game);
         }
     }
 

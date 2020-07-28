@@ -6,7 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ProSwap.Data;
+using ProSwap.Models.Game;
+using ProSwap.Models.Offer;
+using ProSwap.Services;
 
 namespace ProSwap.MVC.Controllers
 {
@@ -14,33 +18,31 @@ namespace ProSwap.MVC.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         // GET: Offers
         public ActionResult Index()
         {
-            var offers = db.Offers.Include(o => o.IsActive);
-            return View();
+            OfferService _offerService = CreateOfferService();
+            var model = _offerService.GetOffers();
+            return View(model.ToList());
         }
 
-        // GET: Offers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Offer offer = db.Offers.Find(id);
-            if (offer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(offer);
-        }
 
         // GET: Offers/Create
         public ActionResult Create()
         {
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name");
-            return View();
+            var games = db.Games.ToList();
+            var gameList = new SelectList(games.Select(e => new SelectListItem()
+            {
+                Value = e.ID.ToString(), Text = e.Name
+            }).ToList(), "Value", "Text");
+
+            var model = new OfferCreate()
+            {
+                ListOfGames = gameList
+            };
+
+            return View(model);
         }
 
         // POST: Offers/Create
@@ -48,33 +50,41 @@ namespace ProSwap.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Offer offer)
+        public ActionResult Create(OfferCreate offer)
         {
             if (ModelState.IsValid)
             {
-                db.Offers.Add(offer);
-                db.SaveChanges();
+                var svc = CreateOfferService();
+                svc.CreateOffer(offer);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", offer.GameID);
+            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", offer.GameId);
             return View(offer);
         }
 
-        // GET: Offers/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Offers/Details/5
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Offer offer = db.Offers.Find(id);
-            if (offer == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", offer.GameID);
-            return View(offer);
+            var svc = CreateOfferService();
+            var model = svc.GetOfferById(id);
+            return View(model);
+        }
+
+        // GET: Offers/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var service = CreateOfferService();
+            var detail = service.GetOfferById(id);
+            var model =
+                new OfferEdit
+                {
+                    OfferId = detail.OfferId,
+                    Title = detail.Title,
+                    Body = detail.Body,
+                    IsActive = detail.IsActive
+                };
+            return View(model);
         }
 
         // POST: Offers/Edit/5
@@ -82,41 +92,48 @@ namespace ProSwap.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Offer offer)
+        public ActionResult Edit(int id, OfferEdit model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.OfferId != id)
             {
-                db.Entry(offer).State = EntityState.Modified;
-                db.SaveChanges();
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateOfferService();
+
+            if (service.UpdateOffer(model))
+            {
+                TempData["SaveResult"] = "Your offer was modified.";
                 return RedirectToAction("Index");
             }
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", offer.GameID);
-            return View(offer);
+
+            ModelState.AddModelError("", "Your offer could not be updated.");
+            return View(model);
         }
 
         // GET: Offers/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Offer offer = db.Offers.Find(id);
-            if (offer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(offer);
+            var svc = CreateOfferService();
+            var model = svc.GetOfferById(id);
+            return View(model);
         }
 
         // POST: Offers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeletePost(int id)
         {
-            Offer offer = db.Offers.Find(id);
-            db.Offers.Remove(offer);
-            db.SaveChanges();
+            var service = CreateOfferService();
+
+            service.DeleteOffer(id);
+
+            TempData["SaveResult"] = "Your offer was deleted";
+
             return RedirectToAction("Index");
         }
 
@@ -127,6 +144,13 @@ namespace ProSwap.MVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private OfferService CreateOfferService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var _offerService = new OfferService(userId);
+            return _offerService;
         }
     }
 }

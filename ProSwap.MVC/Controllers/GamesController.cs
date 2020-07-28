@@ -14,8 +14,6 @@ namespace ProSwap.MVC.Controllers
     public class GamesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private GameService _gameService;
-        private string _userId;
 
         [AllowAnonymous]
         // GET: Games

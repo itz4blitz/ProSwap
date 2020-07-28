@@ -8,6 +8,8 @@ namespace ProSwap.Data
 {
     public class Transaction
     {
+        public int Id { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
 
     }
 }

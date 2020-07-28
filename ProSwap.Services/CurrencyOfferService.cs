@@ -12,27 +12,27 @@ namespace ProSwap.Services
     public class CurrencyOfferService
     {
         private readonly Guid _userId;
-        private readonly ApplicationDbContext _ctx = new ApplicationDbContext();
 
         public CurrencyOfferService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool CurrencyOfferCreate(CurrencyOfferCreate model)
+        public bool CreateCurrencyOffer(CurrencyOfferCreate model)
         {
             var entity =
-                new CurrencyOffer
+                new CurrencyOffer()
                 {
                     OwnerID = _userId,
-                    CreatedUtc = DateTime.Now,
-                    GameID = model.GameId,
                     Title = model.Title,
                     Body = model.Body,
-                    PricePerUnit = model.PricePerUnit,
-                    UnitsAvailable = model.UnitsAvailable,
-                    CurrencyName = model.CurrencyName,
                     IsActive = true,
+                    GameID = model.GameId,
+                    UnitsAvailable = model.UnitsAvailable,
+                    PricePerUnit = model.PricePerUnit,
+                    CurrencyName = model.CurrencyName,
+                    WasFulfilled = false,
+                    CreatedUtc = DateTimeOffset.Now
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -42,115 +42,94 @@ namespace ProSwap.Services
             }
         }
 
-        public List<CurrencyOfferListItem> GetActiveCurrencyOffers()
-        {
-            var query = _ctx.CurrencyOffers.Where(m => m.IsActive == true).Select(e => new CurrencyOfferListItem
-            {
-                OfferId = e.OfferID,
-                CreatedUtc = e.CreatedUtc,
-                ModifiedUtc = e.ModifiedUtc,
-                PricePerUnit = e.PricePerUnit,
-                CurrencyName = e.CurrencyName,
-                UnitsAvailable = e.UnitsAvailable,
-                Title = e.Title,
-                Body = e.Body
-            });
-
-            return query.ToList();
-        }
-
-        public List<CurrencyOfferListItem> GetInactiveCurrencyOffers()
-        {
-            var query = _ctx.CurrencyOffers.Where(m => m.IsActive == false).Select(e => new CurrencyOfferListItem
-            {
-                OfferId = e.OfferID,
-                CreatedUtc = e.CreatedUtc,
-                ModifiedUtc = e.ModifiedUtc,
-                PricePerUnit = e.PricePerUnit,
-                CurrencyName = e.CurrencyName,
-                UnitsAvailable = e.UnitsAvailable,
-                Title = e.Title,
-                Body = e.Body
-            });
-
-            return query.ToList();
-        }
-
-        public List<CurrencyOfferListItem> GetAllCurrencyOffers()
-        {
-            var query = _ctx.CurrencyOffers.Select(e => new CurrencyOfferListItem
-            {
-                OfferId = e.OfferID,
-                CreatedUtc = e.CreatedUtc,
-                ModifiedUtc = e.ModifiedUtc,
-                PricePerUnit = e.PricePerUnit,
-                CurrencyName = e.CurrencyName,
-                UnitsAvailable = e.UnitsAvailable,
-                Title = e.Title,
-                Body = e.Body
-            });
-
-            return query.ToList();
-        }
-
-        public List<CurrencyOfferDetails> GetCurrencyOfferByOfferId(int offerId)
-        {
-
-            var query = _ctx.CurrencyOffers.Where(e => e.OfferID == offerId).Select(e => new CurrencyOfferDetails
-            {
-                OfferId = e.OfferID,
-                CreatedUtc = e.CreatedUtc,
-                ModifiedUtc = e.ModifiedUtc,
-                PricePerUnit = e.PricePerUnit,
-                CurrencyName = e.CurrencyName,
-                UnitsAvailable = e.UnitsAvailable,
-                Title = e.Title,
-                Body = e.Body
-            });
-
-            return query.ToList();
-        }
-
-        public List<CurrencyOfferDetails> GetCurrencyOfferByGameId(int gameId)
+        public IEnumerable<CurrencyOfferListItem> GetCurrencyoffers()
         {
             using (var ctx = new ApplicationDbContext())
             {
+                var query =
+                    ctx
+                        .CurrencyOffers
+                        .Select(
+                            e =>
+                                new CurrencyOfferListItem
+                                {
+                                    OfferId = e.OfferID,
+                                    Title = e.Title,
+                                    Body = e.Body,
+                                    //GameID = e.GameID,
+                                    CreatedUtc = e.CreatedUtc,
+                                    ModifiedUtc = e.ModifiedUtc,
+                                    IsActive = e.IsActive,
+                                    UnitsAvailable = e.UnitsAvailable,
+                                    PricePerUnit = e.PricePerUnit,
+                                    CurrencyName = e.CurrencyName
+                                }
+                        );
 
-                var query = _ctx.CurrencyOffers.Where(e => e.GameID == gameId).Select(e => new CurrencyOfferDetails
-                {
-                    OfferId = e.OfferID,
-                    CreatedUtc = e.CreatedUtc,
-                    ModifiedUtc = e.ModifiedUtc,
-                    PricePerUnit = e.PricePerUnit,
-                    CurrencyName = e.CurrencyName,
-                    UnitsAvailable = e.UnitsAvailable,
-                    Title = e.Title,
-                    Body = e.Body
-                });
-
-                return query.ToList();
+                return query.ToArray();
             }
         }
 
-        public bool CurrencyOfferUpdate(CurrencyOfferEdit model)
-        {
-            var entity = _ctx.CurrencyOffers.Single(j => j.OfferID == model.OfferId && j.OwnerID.ToString() == _userId.ToString());
-            entity.OfferID = model.OfferId;
-            entity.ModifiedUtc = DateTime.Now;
-            entity.PricePerUnit = model.PricePerUnit;
-            entity.CurrencyName = model.CurrencyName;
-            entity.UnitsAvailable = model.UnitsAvailable;
-            entity.Title = model.Title;
-            entity.Body = model.Body;
 
-            return _ctx.SaveChanges() == 1;
+        public CurrencyOfferDetails GetCurrencyOfferById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .CurrencyOffers
+                        .Single(e => e.OfferID == id);
+                return
+                    new CurrencyOfferDetails
+                    {
+                        OfferId = entity.OfferID,
+                        Title = entity.Title,
+                        Body = entity.Body,
+                        //GameId = entity.GameID,
+                        //OwnerID = entity.OwnerID,
+                        IsActive = entity.IsActive,
+                        UnitsAvailable = entity.UnitsAvailable,
+                        PricePerUnit = entity.PricePerUnit,
+                        CurrencyName = entity.CurrencyName,
+                        CreatedUtc = entity.CreatedUtc,
+                        ModifiedUtc = entity.ModifiedUtc
+                    };
+            }
         }
 
-        public bool OfferDelete(int offerId)
+        public bool UpdateCurrencyOffer(CurrencyOfferEdit model)
         {
-            var entity = _ctx.AccountOffers.Single(e => e.OfferID == offerId);
-            entity.IsActive = false;
-            return _ctx.SaveChanges() == 1;
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .CurrencyOffers
+                        .Single(e => e.OwnerID == _userId && e.OfferID == model.OfferId);
+
+                entity.Title = model.Title;
+                entity.Body = model.Body;
+                entity.IsActive = model.IsActive;
+                entity.ModifiedUtc = DateTimeOffset.UtcNow;
+                entity.CurrencyName = entity.CurrencyName;
+                entity.PricePerUnit = model.PricePerUnit;
+                entity.UnitsAvailable = model.UnitsAvailable;
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool DeleteCurrencyOffer(int offerId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .CurrencyOffers
+                        .Single(e => e.OfferID == offerId && e.OwnerID == _userId);
+
+                ctx.CurrencyOffers.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
         }
     }
 }

@@ -17,120 +17,126 @@ namespace ProSwap.MVC.Controllers
     public class AccountOffersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private AccountOfferService _accountOfferService;
         private Guid _userId;
 
-        // GET: AccountOffers
-        [AllowAnonymous]
+
+        // GET: accountoffers
         public ActionResult Index()
         {
-            var offers = db.AccountOffers.Where(a => a.IsActive == true);
-            return View(db.AccountOffers.ToList());
+            AccountOfferService _accountofferService = CreateAccountOfferService();
+            var model = _accountofferService.GetAccountOffers();
+            return View(model.ToList());
         }
 
-        [Authorize]
-        // GET: AccountOffers/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AccountOffer accountOffer = db.AccountOffers.Find(id);
-            if (accountOffer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(accountOffer);
-        }
 
-        [Authorize]
-        // GET: AccountOffers/Create
+        // GET: accountoffers/create
         public ActionResult Create()
         {
-            ViewBag.GameID = new SelectList(db.AccountOffers, "ID", "Name");
-            return View();
+            var games = db.Games.ToList();
+            var gameList = new SelectList(games.Select(e => new SelectListItem()
+            {
+                Value = e.ID.ToString(),
+                Text = e.Name
+            }).ToList(), "Value", "Text");
+
+            var model = new AccountOfferCreate()
+            {
+                ListOfGames = gameList
+            };
+
+            return View(model);
         }
 
-        [Authorize]
-        // POST: AccountOffers/Create
+        // POST: Offers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AccountOfferCreate accountOffer)
+        public ActionResult Create(AccountOfferCreate offer)
         {
             if (ModelState.IsValid)
             {
                 _userId = Guid.Parse(User.Identity.GetUserId());
-                _accountOfferService = new AccountOfferService(_userId);
-                _accountOfferService.AccountOfferCreate(accountOffer);
+                var _accountOfferService = new AccountOfferService(_userId);
+                _accountOfferService.CreateAccountOffer(offer);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", accountOffer.GameID);
-            return View(accountOffer);
+            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", offer.GameId);
+            return View(offer);
         }
 
-        [Authorize]
-        // GET: AccountOffers/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Offers/Details/5
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AccountOffer accountOffer = db.AccountOffers.Find(id);
-            if (accountOffer == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", accountOffer.GameID);
-            return View(accountOffer);
+            var svc = CreateAccountOfferService();
+            var model = svc.GetAccountOfferById(id);
+            return View(model);
         }
 
-        [Authorize]
-        // POST: AccountOffers/Edit/5
+        // GET: Offers/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var service = CreateAccountOfferService();
+            var detail = service.GetAccountOfferById(id);
+            var model =
+                new AccountOfferEdit
+                {
+                    OfferId = detail.OfferId,
+                    Title = detail.Title,
+                    Body = detail.Body,
+                    IsActive = detail.IsActive
+                };
+            return View(model);
+        }
+
+        // POST: Offers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AccountOffer accountOffer)
+        public ActionResult Edit(int id, AccountOfferEdit model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.OfferId != id)
             {
-                db.Entry(accountOffer).State = EntityState.Modified;
-                db.SaveChanges();
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateAccountOfferService();
+
+            if (service.UpdateAccountOffer(model))
+            {
+                TempData["SaveResult"] = "Your account offer was modified.";
                 return RedirectToAction("Index");
             }
-            ViewBag.GameID = new SelectList(db.Games, "ID", "Name", accountOffer.GameID);
-            return View(accountOffer);
+
+            ModelState.AddModelError("", "Your account offer could not be updated.");
+            return View(model);
         }
 
-        // GET: AccountOffers/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Offers/Delete/5
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AccountOffer accountOffer = db.AccountOffers.Find(id);
-            if (accountOffer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(accountOffer);
+            var svc = CreateAccountOfferService();
+            var model = svc.GetAccountOfferById(id);
+            return View(model);
         }
 
-        // POST: AccountOffers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Offers/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeletePost(int id)
         {
-            AccountOffer accountOffer = db.AccountOffers.Find(id);
-            db.Offers.Remove(accountOffer);
-            db.SaveChanges();
+            var service = CreateAccountOfferService();
+
+            service.DeleteAccountOffer(id);
+
+            TempData["SaveResult"] = "Your offer was deleted";
+
             return RedirectToAction("Index");
         }
 
@@ -141,6 +147,13 @@ namespace ProSwap.MVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private AccountOfferService CreateAccountOfferService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var _accountOfferService = new AccountOfferService(userId);
+            return _accountOfferService;
         }
     }
 }

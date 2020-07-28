@@ -1,18 +1,23 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
 
-        @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Users", routeValues: null, htmlAttributes: new { title = "Personal data" })
-        <a class="logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+<div class="nav navbar-nav navbar-right">
+
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Users", routeValues: null, htmlAttributes: new { title = "Personal data" })
+            <a class="logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        }
     }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</li>
-        <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</li>
-    </ul>
-}
+    else
+    {
+        <ul>
+            <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</li>
+        </ul>
+
+    }
+</div>

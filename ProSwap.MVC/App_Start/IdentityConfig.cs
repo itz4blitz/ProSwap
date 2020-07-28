@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,17 +14,57 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ProSwap.Data;
 using ProSwap.MVC.Models;
+using SendGrid.Helpers.Mail;
+using SendGrid;
+using System.Net;
 
 namespace ProSwap.MVC
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            // Credentials:
+            var sendGridUserName = "icebreakzoom";
+            var sentFrom = "support@proswap.io";
+            var sendGridPassword = "20PRO20#sendgrid";
+
+            // Configure the client:
+            var client = new System.Net.Mail.SmtpClient("smtp.sendgrid.net", Convert.ToInt32(587));
+            client.Port = 587;
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+
+            // Create the credentials:
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(sendGridUserName, sendGridPassword);
+            client.EnableSsl = true; client.Credentials = credentials;
+
+            // Create the message:
+            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+
+            // Send: 
+            await client.SendMailAsync(mail);
         }
     }
+
+    //public class ApplicationRoleManager : RoleManager<IdentityRole>
+    //{
+    //    public ApplicationRoleManager(IRoleStore<IdentityRole, string> roleStore)
+    //    : base(roleStore) { }
+
+    //    public static ApplicationRoleManager Create(
+    //        IdentityFactoryOptions<ApplicationRoleManager> options,
+    //        IOwinContext context)
+    //    {
+    //        var manager = new ApplicationRoleManager(
+    //            new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+    //        return manager;
+    //    }
+    //}
+
+
 
     public class SmsService : IIdentityMessageService
     {
@@ -41,7 +83,7 @@ namespace ProSwap.MVC
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -82,29 +124,29 @@ namespace ProSwap.MVC
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
-    }
 
-    // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
-    {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
+        // Configure the application sign-in manager which is used in this application.
+        public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
         {
-        }
+            public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+                : base(userManager, authenticationManager)
+            {
+            }
 
-        public override async Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        {
-            return await user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager, "ApplicationCookie");
-        }
+            public override async Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
+            {
+                return await user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager, "ApplicationCookie");
+            }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+            {
+                return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            }
         }
     }
 }

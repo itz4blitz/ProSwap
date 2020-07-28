@@ -87,23 +87,6 @@
     <Compile Include="AllowHtmlAttribute.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202007201936151_InitialCreate.cs" />
-    <Compile Include="Migrations\202007201936151_InitialCreate.Designer.cs">
-      <DependentUpon>202007201936151_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007210145426_SeedData2.cs" />
-    <Compile Include="Migrations\202007210145426_SeedData2.Designer.cs">
-      <DependentUpon>202007210145426_SeedData2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007231500176_added-posts.cs" />
-    <Compile Include="Migrations\202007231500176_added-posts.Designer.cs">
-      <DependentUpon>202007231500176_added-posts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007240218431_PostTableAdded.cs" />
-    <Compile Include="Migrations\202007240218431_PostTableAdded.Designer.cs">
-      <DependentUpon>202007240218431_PostTableAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Offer.cs" />
     <Compile Include="OfferTypes\AccountOffer.cs" />
     <Compile Include="OfferTypes\CurrencyOffer.cs" />
@@ -115,20 +98,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007201936151_InitialCreate.resx">
-      <DependentUpon>202007201936151_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007210145426_SeedData2.resx">
-      <DependentUpon>202007210145426_SeedData2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231500176_added-posts.resx">
-      <DependentUpon>202007231500176_added-posts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007240218431_PostTableAdded.resx">
-      <DependentUpon>202007240218431_PostTableAdded.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\tinymce\plugins\advimage\langs\en_dlg.js" />
@@ -177,6 +146,5 @@
     <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\img\button_bg.png" />
     <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\ui.css" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

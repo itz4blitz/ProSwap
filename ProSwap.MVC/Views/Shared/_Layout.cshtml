@@ -20,34 +20,39 @@
 
 </head>
 <body>
+    <!-- Full Body  -->
     <div class="bg">
-        <nav class="navbar navbar-expand-lg">
-            <div class="collapse navbar-collapse w-100 order-1 order-lg-0" id="navbarNav">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="~/Content/images/logo.png" width="40" height="40" /> ProSwap
                 </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="nav-container">
-                    <ul class="nav navbar-nav text-md-right">
-                        <li><a href="/Home/Index"><i class="fas fa-home"></i>Home</a></li>
-                        <li><a href="/Home/About"><i class="fas fa-anchor"></i>About</a></li>
-                        <li><a href="/Games/Index"><i class="fas fa-dice-d6"></i>Games</a></li>
-                        <li class="nav-item dropdown ">
-                            <a class="nav-item dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search"></i>Offers</a>
-                            <div class="dropdown-menu bg-dark">
-                                <a class="dropdown-item" href="/AccountOffers/Index"><i class="fas fa-user-alt"></i>Account Offers</a>
-                                <a class="dropdown-item" href="/CurrencyOffers/Index"><i class="fas fa-money-bill-wave-alt"></i>Currency Offers</a>
-                                <a class="dropdown-item" href="/ServiceOffers/Index"><i class="fas fa-charging-station"></i>Service Offers</a>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <div class="nav-container">
+                        <ul class="nav navbar-nav text-md-right">
+                            <li><a href="/home/"><i class="fas fa-home"></i>Home</a></li>
+                            <li><a href="/home/about/"><i class="fas fa-anchor"></i>About</a></li>
+                            <li><a href="/games/"><i class="fas fa-dice-d6"></i>Games</a></li>
+                            <li class="nav-item dropdown ">
+                                <a class="nav-item dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search"></i>Offers</a>
+                                <div class="dropdown-menu bg-dark">
+                                    <a class="dropdown-item" href="/accountoffers/index"><i class="fas fa-user-alt"></i>Account Offers</a>
+                                    <a class="dropdown-item" href="/currencyoffers/index"><i class="fas fa-money-bill-wave-alt"></i>Currency Offers</a>
+                                    <a class="dropdown-item" href="/serviceoffers/index"><i class="fas fa-charging-station"></i>Service Offers</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 @Html.Partial("_LoginPartial")
-
             </div>
         </nav>
+
+        <!-- Carousel -->
         <div class="carousel-container">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -80,7 +85,7 @@
                 </a>
             </div>
         </div>
-
+        <!-- Body -->
         <div class="below-nav">
             @RenderBody()
             <hr />
@@ -98,16 +103,15 @@
                                 <h1 class="mb-0">Connect with us:</h1>
                             </div>
                             <!-- Grid column -->
-                            <!-- Grid column -->
                             <div class="col-md-6 col-lg-7 text-center text-md-right">
 
                                 <!-- Facebook -->
                                 <a class="fb-ic">
                                     <i class="fab fa-facebook-f white-text mr-4"> </i>
                                 </a>
-                                <!-- Twitter -->
-                                <a class="tw-ic">
-                                    <i class="fab fa-twitter white-text mr-4"> </i>
+                                <!-- Discord -->
+                                <a class="dc-ic">
+                                    <i class="fab fa-discord white-text mr-4"> </i>
                                 </a>
                                 <!-- Google +-->
                                 <a class="gplus-ic">
@@ -117,16 +121,10 @@
                                 <a class="li-ic">
                                     <i class="fab fa-linkedin-in white-text mr-4"> </i>
                                 </a>
-                                <!--Instagram-->
-                                <a class="ins-ic">
-                                    <i class="fab fa-instagram white-text"> </i>
-                                </a>
 
                             </div>
-                            <!-- Grid column -->
 
                         </div>
-                        <!-- Grid row-->
 
                     </div>
                 </div>
@@ -147,13 +145,8 @@
                                 ProSwap.io is a one of a kind online-gaming marketplace. Gamers can buy and sell
                                 game accounts, currencies, and services to eachother.
                             </p>
-                            <p>
-                                Our service utilizes industry leading identity verification to ensure that buyers
-                                and sellers are safe, secure, and are paid instantly.
-                            </p>
 
                         </div>
-                        <!-- Grid column -->
                         <!-- Grid column -->
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
@@ -175,56 +168,52 @@
 
                         </div>
                         <!-- Grid column -->
-                        <!-- Grid column -->
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
                             <!-- Links -->
                             <h6 class="text-uppercase font-weight-bold">Useful links</h6>
                             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                             <p>
-                                <a href="/Manage/Index">Account Settings</a>
+                                <a href="/manage/">Account Settings</a>
                             </p>
                             <p>
-                                <a href="/Affiliate/Index">Become an Affiliate</a>
+                                <a href="/affiliate/">Become an Affiliate</a>
                             </p>
                             <p>
                                 <a href="mailto://support@proswap.io">Contact Us</a>
                             </p>
                             <p>
-                                <a href="/Support/Index">Help</a>
+                                <a href="/support/">Help</a>
                             </p>
 
                         </div>
-                        <!-- Grid column -->
                         <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
                             <!-- Links -->
-                            <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                            <h6 class="text-uppercase font-weight-bold">Legal</h6>
                             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                             <p>
-                                <i class="fas fa-home mr-3"></i>Indianapolis, IN
+                                <a href="/faq/">FAQ</a>
                             </p>
                             <p>
-                                <i class="fas fa-envelope mr-3"></i>support@proswap.io
+                                <a href="/privacy/">Privacy Policy</a>
                             </p>
                             <p>
-                                <i class="fas fa-phone mr-3"></i>(317)-922-2400
+                                <a href="/copyright/">Copyright</a>
+                            </p>
+                            <p>
+                                <a href="/support/">Help</a>
                             </p>
 
                         </div>
-                        <!-- Grid column -->
-
                     </div>
-                    <!-- Grid row -->
 
                 </div>
-                <!-- Footer Links -->
                 <!-- Copyright -->
                 <div class="footer-copyright text-center py-3">
                     <p> &copy; @DateTime.Now.Year<a href="https://proswap.io/">ProSwap.io</a> </p>
                 </div>
-                <!-- Copyright -->
 
             </footer>
             <!-- Footer -->

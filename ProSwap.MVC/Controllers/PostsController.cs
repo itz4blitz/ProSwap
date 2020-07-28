@@ -1,127 +1,47 @@
-﻿using System;
+﻿using ProSwap.Data;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+using System.Data.Entity.Infrastructure.MappingViews;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ProSwap.Data;
 
 namespace ProSwap.MVC.Controllers
 {
     public class PostsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        // GET: Post/Random
 
-        // GET: Posts
-        public ActionResult Index()
+        public ActionResult Random()
         {
-            return View(db.Posts.ToList());
-        }
+            var post = new Post() { Title = "This is a test", Body = "This is some filler data for a test post." };
 
-        // GET: Posts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
-        // GET: Posts/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Posts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Post post)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            var viewResult = new ViewResult();
 
             return View(post);
         }
 
-        // GET: Posts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
+            return Content("id" + id);
         }
 
-        // POST: Posts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Post post)
+        public ActionResult Index(int? pageIndex, string sortBy)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(post);
+            
+            if (!pageIndex.HasValue)
+                pageIndex = 1;
+
+            if (String.IsNullOrWhiteSpace(sortBy))
+                sortBy = "Name";
+            return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+
         }
 
-        // GET: Posts/Delete/5
-        public ActionResult Delete(int? id)
+        [Route("post/created//{month:regex(\\d{2}:range(1,12)}/{day:regex(\\d{2}:range(1,31)}/{year:regex(\\d{4}:range(2020)}")]
+        public ActionResult ByCreatedDate(int month, int day, int year)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
-        // POST: Posts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Content(month + "/" + day + "/" + year);
         }
     }
 }

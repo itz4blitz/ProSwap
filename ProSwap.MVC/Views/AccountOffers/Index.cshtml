@@ -1,28 +1,28 @@
-﻿@model IEnumerable<ProSwap.Data.OfferTypes.AccountOffer>
+﻿@model IEnumerable<ProSwap.Models.Offer.OfferListItem>
 
 @{
     ViewBag.Title = "ProSwap.io";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="body-container">
+
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Game.Name)
+                @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OwnerID)
+                @Html.DisplayNameFor(model => model.OfferId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.OwnerId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
+                @Html.DisplayNameFor(model => model.GameID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedUtc)
@@ -30,38 +30,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedUtc)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
+            </th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Game.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OwnerID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedUtc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedUtc)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OfferID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.OfferID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OfferID })
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfferId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Body)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.OfferId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.OfferId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.OfferId })
+        </td>
+    </tr>
         }
 
     </table>

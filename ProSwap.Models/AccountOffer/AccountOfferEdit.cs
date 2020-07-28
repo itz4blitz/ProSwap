@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProSwap.Models.Offer.OfferType.AccountOffer
 {
-    public class AccountOfferUpdate : OfferUpdate
+    public class AccountOfferEdit : OfferUpdate
     {
         public decimal Price { get; set; }
     }

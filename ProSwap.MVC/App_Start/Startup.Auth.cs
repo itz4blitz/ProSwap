@@ -7,6 +7,8 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using ProSwap.Data;
 using ProSwap.MVC.Models;
+using static ProSwap.MVC.ApplicationUserManager;
+using static ProSwap.MVC.EmailService;
 
 namespace ProSwap.MVC
 {

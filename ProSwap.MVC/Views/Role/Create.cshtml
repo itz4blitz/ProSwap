@@ -4,7 +4,7 @@
 }
 
 <div class="body-container">
-    <table style=" background-color:#FFFFFF; border: dashed 3px #6D7B8D; padding: 5px;width: 99%;table-layout:fixed;" cellpadding="6" cellspacing="6">
+    <table style=" background-color:rgba(27, 46, 55, 0.6); border: dashed 3px #6D7B8D; padding: 5px;width: 99%;table-layout:fixed;" cellpadding="6" cellspacing="6">
         <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;border: solid 1px #659EC7;">
             <td align="center" colspan="2">
                 <h2>Create User Roles</h2>
@@ -14,7 +14,7 @@
 
         <tr>
             <td>
-                <table id="tbrole" style="width:100%; border:dotted 1px; background-color:gainsboro; padding-left:10px;">
+                <table id="tbrole" style="width:100%; border:dotted 1px; brgba(27, 46, 55, 0.9); padding-left:10px;">
 
                     @foreach (var item in Model)
                     {
@@ -26,7 +26,7 @@
                     }
                 </table>
             </td>
-            <td align="right" style="color:#FFFFFF;padding-right:10;">
+            <td align="right" style="rgba(27, 46, 55, 0.7); padding-right: 10;">
 
 
                 <h3>   @Html.ActionLink("Click to Create New Role", "Create", "Role") </h3>
