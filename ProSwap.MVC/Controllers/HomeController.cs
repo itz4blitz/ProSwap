@@ -25,6 +25,7 @@ namespace ProSwap.MVC.Controllers
 
             return View();
         }
+
         [AllowAnonymous]
         public ActionResult Contact()
         {
