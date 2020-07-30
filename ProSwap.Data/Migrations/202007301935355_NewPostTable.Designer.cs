@@ -7,13 +7,13 @@ namespace ProSwap.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class final : IMigrationMetadata
+    public sealed partial class NewPostTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(final));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewPostTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "202007281954496_final"; }
+            get { return "202007301935355_NewPostTable"; }
         }
         
         string IMigrationMetadata.Source

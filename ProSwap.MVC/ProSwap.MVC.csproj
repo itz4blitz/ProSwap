@@ -522,7 +522,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Post\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTimeOffset.cshtml" />
     <Content Include="Views\Offers\Index.cshtml" />
     <Content Include="Views\Offers\Create.cshtml" />
@@ -544,10 +543,14 @@
     <Content Include="Views\ServiceOffers\Details.cshtml" />
     <Content Include="Views\ServiceOffers\Edit.cshtml" />
     <Content Include="Views\ServiceOffers\Delete.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Posts\" />
     <Folder Include="Views\Transaction\" />
   </ItemGroup>
   <ItemGroup>

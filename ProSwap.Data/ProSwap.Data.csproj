@@ -87,9 +87,9 @@
     <Compile Include="AllowHtmlAttribute.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202007281954496_final.cs" />
-    <Compile Include="Migrations\202007281954496_final.Designer.cs">
-      <DependentUpon>202007281954496_final.cs</DependentUpon>
+    <Compile Include="Migrations\202007301935355_NewPostTable.cs" />
+    <Compile Include="Migrations\202007301935355_NewPostTable.Designer.cs">
+      <DependentUpon>202007301935355_NewPostTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Offer.cs" />
@@ -152,8 +152,8 @@
     <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\ui.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007281954496_final.resx">
-      <DependentUpon>202007281954496_final.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007301935355_NewPostTable.resx">
+      <DependentUpon>202007301935355_NewPostTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

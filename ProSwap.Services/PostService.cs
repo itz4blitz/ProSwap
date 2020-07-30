@@ -1,5 +1,6 @@
 ﻿using ProSwap.Data;
 using ProSwap.Models.Offer;
+using ProSwap.Models.Post;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,54 +9,50 @@ using System.Threading.Tasks;
 
 namespace ProSwap.Services
 {
-    public class OfferService
+    public class PostService
     {
         private readonly Guid _userId;
 
-        public OfferService(Guid userId)
+        public PostService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool CreateOffer(OfferCreate model)
+        public bool CreatePost(PostCreate model)
         {
             var entity =
-                new Offer()
+                new Post()
                 {
-                    OwnerID = _userId,
+                    OwnerId = _userId,
                     Title = model.Title,
                     Body = model.Body,
-                    IsActive = true,
-                    GameID = model.GameId,
                     CreatedUtc = DateTimeOffset.Now
                 };
 
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Offers.Add(entity);
+                ctx.Posts.Add(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public IEnumerable<OfferListItem> GetOffers()
+        public IEnumerable<PostListItem> GetPosts()
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
-                        .Offers
+                        .Posts
                         .Select(
                             e =>
-                                new OfferListItem
+                                new PostListItem
                                 {
-                                    Owner = ctx.Users.FirstOrDefault(u => u.Id == e.OwnerID.ToString()).UserName,
-                                    OfferId = e.OfferID,
+                                    OwnerName = ctx.Users.FirstOrDefault(u => u.Id == e.OwnerId.ToString()).UserName,
+                                    PostId = e.PostId,
                                     Title = e.Title,
                                     Body = e.Body,
-                                    GameName = ctx.Games.FirstOrDefault(model => model.ID == e.GameID).Name,
                                     CreatedUtc = e.CreatedUtc,
                                     ModifiedUtc = e.ModifiedUtc,
-                                    IsActive = e.IsActive
                                 }
                         );
 
@@ -63,56 +60,54 @@ namespace ProSwap.Services
             }
         }
 
-        public OfferDetails GetOfferById(int id)
+        public PostDetails GetPostById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Offers
-                        .Single(e => e.OfferID == id);
+                        .Posts
+                        .Single(e => e.PostId == id);
                 return
-                    new OfferDetails
+                    new PostDetails
                     {
-                        OfferId = entity.OfferID,
+                        PostId = entity.PostId,
                         Title = entity.Title,
                         Body = entity.Body,
-                        OwnerName = ctx.Users.FirstOrDefault(u => u.Id == entity.OwnerID.ToString()).UserName,
-                        IsActive = entity.IsActive,
+                        OwnerName = ctx.Users.FirstOrDefault(u => u.Id == entity.OwnerId.ToString()).UserName,
                         CreatedUtc = entity.CreatedUtc,
                         ModifiedUtc = entity.ModifiedUtc
                     };
             }
         }
 
-        public bool UpdateOffer(OfferEdit model)
+        public bool UpdatePost(PostEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Offers
-                        .Single(e => e.OwnerID == _userId && e.OfferID == model.OfferId);
+                        .Posts
+                        .Single(e => e.OwnerId == _userId && e.PostId == model.PostId);
 
                 entity.Title = model.Title;
                 entity.Body = model.Body;
-                entity.IsActive = model.IsActive;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public bool DeleteOffer(int offerId)
+        public bool DeletePost(int postId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Offers
-                        .Single(e => e.OfferID == offerId && e.OwnerID == _userId);
+                        .Posts
+                        .Single(e => e.PostId == postId && e.OwnerId == _userId);
 
-                ctx.Offers.Remove(entity);
+                ctx.Posts.Remove(entity);
 
                 return ctx.SaveChanges() == 1;
             }

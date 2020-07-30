@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using ProSwap.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,9 @@ namespace ProSwap.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            PostService _postService = CreatePostService();
+            var model = _postService.GetPosts();
+            return View(model.ToList());
         }
 
         [AllowAnonymous]
@@ -27,6 +31,13 @@ namespace ProSwap.MVC.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private PostService CreatePostService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var _postService = new PostService(userId);
+            return _postService;
         }
     }
 }

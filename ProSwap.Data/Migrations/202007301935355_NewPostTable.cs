@@ -3,7 +3,7 @@ namespace ProSwap.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class final : DbMigration
+    public partial class NewPostTable : DbMigration
     {
         public override void Up()
         {

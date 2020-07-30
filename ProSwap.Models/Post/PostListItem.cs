@@ -12,7 +12,7 @@ namespace ProSwap.Models.Post
         [Display(Name = "Post ID: ")]
         public int PostId { get; set; }
         [Display(Name = "Owner: ")]
-        public Guid OwnerId { get; set; }
+        public string OwnerName { get; set; }
         [Display(Name = "Title: ")]
         public string Title { get; set; }
         [Display(Name = "Body: ")]
