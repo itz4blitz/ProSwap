@@ -13,6 +13,12 @@ namespace ProSwap.Services
     {
         private readonly Guid _userId;
 
+
+        public PostService()
+        {
+
+        }
+
         public PostService(Guid userId)
         {
             _userId = userId;
