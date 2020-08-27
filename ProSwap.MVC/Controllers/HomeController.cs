@@ -33,10 +33,9 @@ namespace ProSwap.MVC.Controllers
 
             return View();
         }
-
         private PostService CreatePostService()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
+            var userId = Guid.Parse("89e6f76c-46f6-47f3-8f4e-ab8df9f5226e");
             var _postService = new PostService(userId);
             return _postService;
         }
