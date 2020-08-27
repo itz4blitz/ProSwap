@@ -11,17 +11,15 @@ namespace ProSwap.Services
 {
     public class PostService
     {
-        private readonly Guid _userId;
+        private readonly Guid? _userId;
 
+        public PostService(Guid? userId)
+        {
+            _userId = userId;
+        }
 
         public PostService()
         {
-
-        }
-
-        public PostService(Guid userId)
-        {
-            _userId = userId;
         }
 
         public bool CreatePost(PostCreate model)
@@ -29,7 +27,7 @@ namespace ProSwap.Services
             var entity =
                 new Post()
                 {
-                    OwnerId = _userId,
+                    OwnerId = (Guid)_userId,
                     Title = model.Title,
                     Body = model.Body,
                     CreatedUtc = DateTimeOffset.Now

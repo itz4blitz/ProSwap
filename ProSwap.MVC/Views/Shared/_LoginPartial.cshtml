@@ -14,10 +14,10 @@
     }
     else
     {
-        <ul>
-            <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</li>
-        </ul>
+        <div class="float-container">
+            <div class="float-child">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</div>
+            <div class="float-child">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "nav-link" })</div>
+        </div>
 
     }
 </div>

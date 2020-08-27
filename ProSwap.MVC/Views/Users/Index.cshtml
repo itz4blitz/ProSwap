@@ -8,19 +8,41 @@
 {
     <div class="body-container">
         <p>Hello, <strong>@ViewBag.Name</strong>. Welcome to the admin control panel.</p>
-            <li>@Html.ActionLink("Manage Roles", "Index", "Role")</li>
-            <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
-            <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
+        <li>@Html.ActionLink("Manage Roles", "Index", "Role")</li>
+        <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
+        <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
+
+
+        <div class="container">
+            <div class="row feed">
+                <div class="col-sm-1">
+                    <div class="left-upanel">
+                        <h1>@ViewBag.Name</h1>
+                    </div>
+                </div>
+                <div class="col-sm-9">Test</div>
+                <div class="col-sm-2">Test</div>
+            </div>
+        </div>
     </div>
 }
 else
 {
-<div class="body-container">
+    <div class="body-container">
 
-    <h2>Hello, <strong>@ViewBag.Name</strong>. This is the user control panel.</h2>
+        <h2>Hello, <strong>@ViewBag.Name</strong>. This is the user control panel.</h2>
 
-    <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
-    <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
-</div>
+        <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
+        <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
 
+
+        <div class="container">
+            <div class="row feed">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7"></div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
+
+    </div>
 }

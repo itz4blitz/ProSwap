@@ -16,13 +16,13 @@ namespace ProSwap.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var userId = Guid.NewGuid();
-            if (User.Identity.IsAuthenticated)
+            var _userId = Guid.NewGuid();
+            if (!User.Identity.IsAuthenticated)
             {
-                userId = Guid.Parse(User.Identity.GetUserId());
+                _userId = Guid.Parse(User.Identity.GetUserId());
             }
 
-            PostService _postService = CreatePostService();
+            PostService _postService = CreatePostService(_userId);
             var model = _postService.GetPosts();
             return View(model.ToList());
         }
@@ -52,9 +52,10 @@ namespace ProSwap.MVC.Controllers
             base.Dispose(disposing);
         }
 
-        private PostService CreatePostService()
+        private PostService CreatePostService(Guid? _userId)
         {
-            var _postService = new PostService();
+            var _postService = new PostService(_userId);
+
             return _postService;
         }
     }
