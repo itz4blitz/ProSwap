@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using ProSwap.Data;
 using ProSwap.Services;
 using System;
 using System.Collections.Generic;
@@ -11,18 +10,10 @@ namespace ProSwap.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var _userId = Guid.NewGuid();
-            if (!User.Identity.IsAuthenticated)
-            {
-                _userId = Guid.Parse(User.Identity.GetUserId());
-            }
-
-            PostService _postService = CreatePostService(_userId);
+            PostService _postService = CreatePostService();
             var model = _postService.GetPosts();
             return View(model.ToList());
         }
@@ -42,20 +33,10 @@ namespace ProSwap.MVC.Controllers
 
             return View();
         }
-
-        protected override void Dispose(bool disposing)
+        private PostService CreatePostService()
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private PostService CreatePostService(Guid? _userId)
-        {
-            var _postService = new PostService(_userId);
-
+            var userId = Guid.Parse("89e6f76c-46f6-47f3-8f4e-ab8df9f5226e");
+            var _postService = new PostService(userId);
             return _postService;
         }
     }

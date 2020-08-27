@@ -18,7 +18,6 @@ namespace ProSwap.MVC.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
         // GET: Offers
         public ActionResult Index()
         {
