@@ -7,21 +7,15 @@
 @if (ViewBag.displayMenu == "Yes")
 {
     <div class="body-container">
-        <p>Hello, <strong>@ViewBag.Name</strong>. Welcome to the admin control panel.</p>
-        <li>@Html.ActionLink("Manage Roles", "Index", "Role")</li>
-        <li>@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")</li>
-        <li>@Html.ActionLink("Change Password", "Index", "Manage")</li>
+        <h1>Hello, <strong>@ViewBag.Name</strong>.</h1><p><br />Welcome to the Admin Control Panel. <br />To get started, select an option below:</p>
 
 
-        <div class="container">
+
+        <div class="admin-inner-container">
             <div class="row feed">
-                <div class="col-sm-1">
-                    <div class="left-upanel">
-                        <h1>@ViewBag.Name</h1>
-                    </div>
-                </div>
-                <div class="col-sm-9">Test</div>
-                <div class="col-sm-2">Test</div>
+                <br />@Html.ActionLink("Manage Roles", "Index", "Role")
+                <br />@Html.ActionLink("Multi-Factor Authentication", "ManageLogins", "Manage")
+                <br />@Html.ActionLink("Change Password", "Index", "Manage")
             </div>
         </div>
     </div>

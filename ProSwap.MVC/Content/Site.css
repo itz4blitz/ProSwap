@@ -412,4 +412,20 @@ footer h1{
     width: 50%;
     float: left;
     padding: 5px;
-}  
+}
+
+.admin-inner-container {
+    background: rgba(0, 0, 0, 0.5);
+    margin: 20px 20px 20px 20px;
+    padding: 10px 10px 10px 10px;
+    outline: 1px solid black;
+    box-shadow: 0 0 2pt 1pt black;
+}
+
+.row feed{
+    padding: 10px 10px 10px 10px;
+}
+
+.postContent {
+    color: red;
+}

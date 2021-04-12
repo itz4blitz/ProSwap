@@ -21,7 +21,7 @@ namespace ProSwap.MVC.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "ProSwap - Online Games Marketplace.";
 
             return View();
         }
@@ -29,7 +29,7 @@ namespace ProSwap.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Welcome to the contact page. We're still in the process of getting this page updated. Please check back soon.";
 
             return View();
         }
