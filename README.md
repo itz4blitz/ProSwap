@@ -18,7 +18,7 @@ or Framework Installations that are provided. Once left with no errors, you can 
 the startup project in Visual Studio and debugging the code. Likewise, to work with the frontend UI, you can set the MVC layer as
 the startup project.
 
-I want to add my own objects/models. 
+I want to add my own entites. 
 
 Great! Make sure from within Package Manager Console that the Data layer is the default project. Enable migrations for 
 EntityFramework with "Enable-Migrations" at the console. Next create a migration with "add-migration MigrationName". Once
